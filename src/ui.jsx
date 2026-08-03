@@ -7,9 +7,16 @@ import { usd } from './data.js'
 gsap.registerPlugin(ScrollTrigger)
 
 /* ------------------------------------------------------------------ *
- * Img — skeleton while loading, fade in on decode, native lazy loading.
- * Native `loading="lazy"` is the browser's own intersection observer,
- * so there is no observer to write here.
+ * Img — skeleton while loading, fades in once decoded.
+ *
+ * No loading="lazy". The whole site is 12 images at 81–320KB, so deferring
+ * them saves almost nothing, while every lazy mechanism (native lazy and
+ * IntersectionObserver alike) is driven by the rendering loop and stalls
+ * whenever the tab isn't painting — leaving permanent empty skeletons.
+ * `priority` still drives fetchPriority so the LCP image wins the race.
+ *
+ * ponytail: reinstate lazy loading if the listings grid ever grows past
+ * ~20 properties, at which point deferring actually buys something.
  * ------------------------------------------------------------------ */
 export function Img({ src, alt, className = '', wrapClass = '', priority = false, ...rest }) {
   const [loaded, setLoaded] = useState(false)
@@ -18,7 +25,6 @@ export function Img({ src, alt, className = '', wrapClass = '', priority = false
       <img
         src={src}
         alt={alt}
-        loading={priority ? 'eager' : 'lazy'}
         decoding="async"
         fetchPriority={priority ? 'high' : 'auto'}
         onLoad={() => setLoaded(true)}

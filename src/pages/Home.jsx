@@ -49,8 +49,9 @@ function Hero() {
             src={src}
             alt=""
             aria-hidden="true"
+            // Both slides load up front — the second is on screen within 6.5s,
+            // and it sits in the viewport from the start, so lazy buys nothing.
             fetchPriority={i === 0 ? 'high' : 'low'}
-            loading={i === 0 ? 'eager' : 'lazy'}
             className={`absolute inset-0 size-full object-cover transition-opacity duration-[2s] ${
               i === slide ? 'opacity-100' : 'opacity-0'
             }`}
@@ -174,9 +175,12 @@ function Featured() {
         </Reveal>
       </div>
 
+      {/* All three load eagerly. They're the point of the page, they sit one
+          screen below the hero, and three ~150KB images aren't worth gating
+          on a lazy-load heuristic that stalls whenever the tab isn't painting. */}
       <Reveal stagger={0.15} y={60} className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-        {featured.map((p, i) => (
-          <PropertyCard key={p.id} p={p} priority={i === 0} />
+        {featured.map((p) => (
+          <PropertyCard key={p.id} p={p} priority />
         ))}
       </Reveal>
     </section>
