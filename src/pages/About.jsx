@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { stats, testimonials } from '../data.js'
-import { Img, Reveal, Counter, Stars, useGsap, btnPrimary, btnGhost } from '../ui.jsx'
-
-gsap.registerPlugin(ScrollTrigger)
+import { Img, Reveal, Counter, Stars, btnPrimary, btnGhost } from '../ui.jsx'
 
 // No agent-*.jpg assets exist yet — these stand in. Drop real headshots at
 // /public/images/agents/agent-elena-marsh.webp etc. and swap the paths here.
@@ -29,21 +25,10 @@ const services = [
   },
 ]
 
-/* Story copy fades in line by line as it scrolls through the viewport. */
+/* Story copy fades in line by line as it scrolls into view. */
 function Story() {
-  const ref = useGsap((el) => {
-    gsap.from('p', {
-      opacity: 0.15,
-      y: 24,
-      duration: 0.8,
-      stagger: 0.2,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 75%', end: 'bottom 60%', scrub: 0.6 },
-    })
-  }, [])
-
   return (
-    <div ref={ref} className="max-w-2xl space-y-6 text-lg leading-relaxed text-muted">
+    <Reveal stagger={0.15} y={24} className="max-w-2xl space-y-6 text-lg leading-relaxed text-muted">
       <p>
         Realtor LG started in 2008, in the worst year anyone in this business can remember. That timing turned out to be the
         whole education: we learned to price honestly because nothing else sold.
@@ -56,7 +41,7 @@ function Story() {
         We work in six states, and we'll tell you plainly when a market isn't ours — then hand you to someone we'd use
         ourselves.
       </p>
-    </div>
+    </Reveal>
   )
 }
 

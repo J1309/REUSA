@@ -9,6 +9,10 @@ import './index.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Arm the scroll-reveal hidden states (see index.css / Reveal). Kept here so a
+// failed bundle load leaves every `.reveal` visible rather than stranded.
+document.documentElement.classList.add('js-reveal')
+
 // Code-split every page; Home is the only one most visitors will load.
 const Home = lazy(() => import('./pages/Home.jsx'))
 const Listings = lazy(() => import('./pages/Listings.jsx'))

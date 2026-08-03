@@ -82,22 +82,90 @@ export function useGsap(build, deps) {
   return ref
 }
 
-/* Reveal — scroll-triggered fade/slide. `stagger` animates direct children. */
+/* Fire `cb(el)` once, the first time the element scrolls into view.
+   IntersectionObserver runs off layout, not the paint loop, and where it's
+   missing we fire immediately — callers always keep a visible default, so a
+   no-op here never hides anything. */
+function useInView(cb) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !('IntersectionObserver' in window)) return void cb?.(el)
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          cb?.(el)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  return ref
+}
+
+/* Reveal — fade/slide in on scroll. `stagger` animates direct children.
+   Deliberately NOT ScrollTrigger: the reveal is a CSS transition toggled by an
+   IntersectionObserver, so a stalled GSAP ticker or a mis-timed ScrollTrigger
+   refresh can't strand content off-screen. The `reveal` class only hides
+   things once `<html>` has `js-reveal` (see index.css), and a 2.5s safety
+   timeout force-reveals no matter what. */
 export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 0, as: Tag = 'div' }) {
-  const ref = useGsap(
-    (el) => {
-      gsap.from(stagger ? el.children : el, {
-        y,
-        opacity: 0,
-        duration: 0.9,
-        delay,
-        stagger,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const targets = stagger ? [...el.children] : [el]
+    targets.forEach((t) => {
+      t.style.setProperty('--rv-y', `${y}px`)
+      t.classList.add('reveal')
+    })
+
+    // Stagger/delay is applied by WHEN we add `reveal-in`, not via CSS
+    // transition-delay: a delayed transition can freeze mid-fade if the
+    // compositor pauses, but a delay-free transition to a resting opacity:1
+    // always settles. Track the timers so unmount can cancel them.
+    const timers = []
+    let done = false
+    const reveal = () => {
+      if (done) return
+      done = true
+      targets.forEach((t, i) => {
+        const wait = (delay + i * stagger) * 1000
+        timers.push(setTimeout(() => t.classList.add('reveal-in'), wait))
       })
-    },
-    [y, delay, stagger],
-  )
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      targets.forEach((t) => t.classList.add('reveal-in'))
+      return
+    }
+    // Safety net: content is never left hidden, even if the observer never fires.
+    timers.push(setTimeout(reveal, 2500))
+    let io
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            reveal()
+            io.disconnect()
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px' },
+      )
+      io.observe(el)
+    } else {
+      reveal()
+    }
+    return () => {
+      timers.forEach(clearTimeout)
+      io?.disconnect()
+    }
+  }, [y, delay, stagger])
+
   return (
     <Tag ref={ref} className={className}>
       {children}
@@ -105,26 +173,23 @@ export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 
   )
 }
 
-/* Counter — counts up once when scrolled into view.
-   Renders the final figure outright when animation can't run, so it never
-   sits at a misleading zero. */
+/* Counter — counts up the first time it scrolls into view. The final figure is
+   the rendered default, so if the count-up never runs (reduced motion, hidden
+   tab, no observer) it shows the real number rather than a stranded zero. */
 export function Counter({ to, suffix = '', className = '' }) {
-  const ref = useGsap(
-    (el) => {
-      const obj = { n: 0 }
-      el.textContent = '0' + suffix
-      gsap.to(obj, {
-        n: to,
-        duration: 2,
-        ease: 'power2.out',
-        onUpdate: () => {
-          el.textContent = Math.round(obj.n).toLocaleString('en-US') + suffix
-        },
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      })
-    },
-    [to, suffix],
-  )
+  const ref = useInView((el) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const obj = { n: 0 }
+    el.textContent = '0' + suffix
+    gsap.to(obj, {
+      n: to,
+      duration: 2,
+      ease: 'power2.out',
+      onUpdate: () => {
+        el.textContent = Math.round(obj.n).toLocaleString('en-US') + suffix
+      },
+    })
+  })
   return (
     <span ref={ref} className={className}>
       {to.toLocaleString('en-US')}

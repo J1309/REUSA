@@ -40,7 +40,25 @@ html.lenis, html.lenis body { height: auto; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } }
 
+/* Scroll reveal. Content is VISIBLE BY DEFAULT — the hidden start state only
+   applies once JS has added `js-reveal` to <html> AND the element itself has
+   the `reveal` class (attached in an effect that also wires an
+   IntersectionObserver + a hard safety timeout). So if JS never runs, an
+   observer never fires, or a script errors mid-init, content simply stays
+   visible instead of being stranded invisible. */
+html.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(var(--rv-y, 40px));
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+html.js-reveal .reveal.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skeleton::after { animation: none; }
+  html.js-reveal .reveal { transition: none; }
   * { transition-duration: 0.01ms !important; }
 }
