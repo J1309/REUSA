@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-ink: #0c1f1c;      /* deep teal-black, headlines + dark sections */
+  --color-deep: #123331;     /* rich teal */
+  --color-sea: #1f5c56;      /* mid teal */
+  --color-accent: #7fa88b;   /* muted accent green */
+  --color-sand: #f6f2ea;     /* warm neutral page bg */
+  --color-stone: #e2dcd1;    /* borders / skeletons */
+  --color-muted: #6c7671;    /* body copy on light */
+}
+
+html {
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  @apply bg-sand text-ink font-sans antialiased;
+}
+
+/* Lenis needs the scroller to be the document, not a snapping container */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+::selection { background: var(--color-accent); color: var(--color-ink); }
+
+/* Skeleton shimmer used by <Img> and the card placeholders */
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+.skeleton { @apply relative overflow-hidden bg-stone; }
+.skeleton::after {
+  content: "";
+  @apply absolute inset-0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after { animation: none; }
+  * { transition-duration: 0.01ms !important; }
+}
