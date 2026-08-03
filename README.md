@@ -1,4 +1,4 @@
-# Aurelia Estates
+# Realtor LG
 
 React + Vite. Lenis smooth scroll, GSAP ScrollTrigger animations, a Three.js ambient
 layer in the hero, Tailwind v4 for styling.

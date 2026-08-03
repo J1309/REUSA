@@ -232,7 +232,7 @@ export function Nav() {
           to="/"
           className={`flex min-h-11 items-center font-display text-xl tracking-tight transition-colors ${overHero ? 'text-sand' : 'text-ink'}`}
         >
-          Aurelia<span className="text-accent">.</span>
+          Realtor LG<span className="text-accent">.</span>
         </Link>
 
         <div className={`hidden items-center gap-9 md:flex ${overHero ? 'text-sand' : 'text-ink'}`}>
@@ -368,7 +368,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="font-display text-3xl">
-              Aurelia<span className="text-accent">.</span>
+              Realtor LG<span className="text-accent">.</span>
             </p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-sand/60">
               A small brokerage that takes few listings and answers the phone. Licensed in CA, TX, FL, SC, OR and CO.
@@ -389,15 +389,15 @@ export function Footer() {
             <a href="tel:+18005550142" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
               +1 (800) 555-0142
             </a>
-            <a href="mailto:hello@aurelia.re" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
-              hello@aurelia.re
+            <a href="mailto:hello@realtorlg.com" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
+              hello@realtorlg.com
             </a>
             <p className="flex min-h-11 items-center text-sand/70">Mon–Sat, 8am–7pm PT</p>
           </div>
         </div>
 
         <div className="mt-16 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/40 sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} Aurelia Estates. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Realtor LG. All rights reserved.</p>
           <p>Equal Housing Opportunity</p>
         </div>
       </div>

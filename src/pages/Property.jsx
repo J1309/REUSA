@@ -85,7 +85,7 @@ export default function Property() {
 
   return (
     <>
-      <header className="mx-auto max-w-7xl px-6 pb-10 pt-36 lg:px-10">
+      <header className="mx-auto max-w-7xl px-6 pb-10 pt-28 sm:pt-32 lg:pt-36 lg:px-10">
         <Link to="/listings" className="text-sm text-muted transition-colors hover:text-ink">
           ← All listings
         </Link>
@@ -126,7 +126,7 @@ export default function Property() {
         <p className="mt-3 text-xs text-muted">Click any photo to open the full gallery · {p.images.length} images</p>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-[1.6fr_1fr] lg:px-10">
+      <section className="mx-auto grid max-w-7xl gap-16 px-6 py-12 sm:py-16 lg:py-24 lg:grid-cols-[1.6fr_1fr] lg:px-10">
         <div>
           <Reveal>
             <h2 className="font-display text-3xl">About this home</h2>
@@ -168,7 +168,7 @@ export default function Property() {
               <a href="tel:+18005550142" className={`${btnPrimary} bg-sand text-ink hover:bg-accent`}>
                 Call about this home
               </a>
-              <a href={`mailto:hello@aurelia.re?subject=${encodeURIComponent(`${p.title} — ${p.location}`)}`} className={`${btnGhost} text-sand`}>
+              <a href={`mailto:hello@realtorlg.com?subject=${encodeURIComponent(`${p.title} — ${p.location}`)}`} className={`${btnGhost} text-sand`}>
                 Request a tour
               </a>
             </div>
@@ -177,7 +177,7 @@ export default function Property() {
       </section>
 
       <section className="border-t border-stone">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+        <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:py-24 lg:px-10">
           <Reveal className="mb-12">
             <h2 className="font-display text-3xl">Similar homes</h2>
           </Reveal>

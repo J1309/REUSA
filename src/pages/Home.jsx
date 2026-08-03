@@ -65,7 +65,7 @@ function Hero() {
       </Suspense>
 
       <div ref={copy} className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 lg:px-10">
-        <p className="mb-6 text-xs uppercase tracking-[0.3em] text-sand/60">Aurelia Estates — Est. 2008</p>
+        <p className="mb-6 text-xs uppercase tracking-[0.3em] text-sand/60">Realtor LG — Est. 2008</p>
         <h1 className="max-w-4xl font-display text-[clamp(2.6rem,7vw,5.5rem)] leading-[0.98] text-sand">
           <SplitText text="Homes worth" />
           <br />
@@ -159,8 +159,8 @@ function SearchBar() {
 function Featured() {
   const featured = properties.filter((p) => p.featured)
   return (
-    <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-      <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+    <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
+      <div className="mb-8 sm:mb-10 lg:mb-14 flex flex-wrap items-end justify-between gap-6">
         <Reveal>
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">Currently on the market</p>
           <h2 className="max-w-xl font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">
@@ -190,7 +190,7 @@ function Featured() {
 function WhyUs() {
   return (
     <section className="bg-ink text-sand">
-      <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
+      <div className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
         <Reveal className="max-w-2xl">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-sand/40">Why us</p>
           <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">
@@ -202,7 +202,7 @@ function WhyUs() {
           </p>
         </Reveal>
 
-        <Reveal stagger={0.12} className="mt-20 grid grid-cols-2 gap-10 lg:grid-cols-4">
+        <Reveal stagger={0.12} className="mt-10 sm:mt-14 lg:mt-20 grid grid-cols-2 gap-10 lg:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="border-t border-sand/15 pt-6">
               <Counter to={s.value} suffix={s.suffix} className="font-display text-[clamp(2.4rem,5vw,3.6rem)]" />
@@ -223,8 +223,8 @@ const lifestyle = [
 
 function Neighborhood() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-      <Reveal className="mb-14 max-w-xl">
+    <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
+      <Reveal className="mb-8 sm:mb-10 lg:mb-14 max-w-xl">
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">The other half</p>
         <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">You buy a street, not a floor plan.</h2>
       </Reveal>
@@ -258,7 +258,7 @@ function Testimonials() {
   const t = testimonials[i]
   return (
     <section className="bg-deep text-sand">
-      <div className="mx-auto max-w-4xl px-6 py-28 text-center lg:px-10">
+      <div className="mx-auto max-w-4xl px-6 py-14 sm:py-20 lg:py-28 text-center lg:px-10">
         <Stars n={t.stars} />
         <blockquote key={i} className="mt-8 animate-[fadeIn_0.8s_ease] font-display text-[clamp(1.5rem,3.2vw,2.4rem)] leading-snug">
           “{t.quote}”
@@ -280,7 +280,7 @@ function Testimonials() {
 
 function CTA() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
+    <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
       <Reveal className="overflow-hidden rounded-3xl bg-white p-10 text-center shadow-[0_30px_70px_-40px_rgba(12,31,28,0.5)] md:p-20">
         <h2 className="mx-auto max-w-2xl font-display text-[clamp(2rem,4.5vw,3.4rem)] leading-tight">
           Tell us what you're looking for.

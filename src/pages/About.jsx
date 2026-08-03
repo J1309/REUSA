@@ -45,7 +45,7 @@ function Story() {
   return (
     <div ref={ref} className="max-w-2xl space-y-6 text-lg leading-relaxed text-muted">
       <p>
-        Aurelia started in 2008, in the worst year anyone in this business can remember. That timing turned out to be the
+        Realtor LG started in 2008, in the worst year anyone in this business can remember. That timing turned out to be the
         whole education: we learned to price honestly because nothing else sold.
       </p>
       <p>
@@ -63,7 +63,7 @@ function Story() {
 export default function About() {
   return (
     <>
-      <header className="mx-auto max-w-7xl px-6 pb-16 pt-36 lg:px-10">
+      <header className="mx-auto max-w-7xl px-6 pb-16 pt-28 sm:pt-32 lg:pt-36 lg:px-10">
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">About</p>
         <h1 className="max-w-3xl font-display text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.02]">
           Six agents who'd rather lose a listing than oversell one.
@@ -74,7 +74,7 @@ export default function About() {
         <Reveal>
           <Img
             src="/images/hero/hero-01.webp"
-            alt="Aurelia Estates office"
+            alt="Realtor LG office"
             priority
             wrapClass="aspect-[16/9] rounded-3xl md:aspect-[21/9]"
             className="size-full object-cover"
@@ -82,7 +82,7 @@ export default function About() {
         </Reveal>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-14 px-6 py-28 lg:grid-cols-[1fr_1.3fr] lg:px-10">
+      <section className="mx-auto grid max-w-7xl gap-14 px-6 py-14 sm:py-20 lg:py-28 lg:grid-cols-[1fr_1.3fr] lg:px-10">
         <Reveal>
           <h2 className="font-display text-[clamp(1.8rem,3.5vw,2.6rem)] leading-tight">How we got here</h2>
         </Reveal>
@@ -90,8 +90,8 @@ export default function About() {
       </section>
 
       <section className="bg-ink text-sand">
-        <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-          <Reveal className="mb-16 max-w-xl">
+        <div className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
+          <Reveal className="mb-8 sm:mb-12 lg:mb-16 max-w-xl">
             <p className="mb-3 text-xs uppercase tracking-[0.3em] text-sand/40">What we do</p>
             <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">Three ways to work with us</h2>
           </Reveal>
@@ -107,8 +107,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-        <Reveal className="mb-16 max-w-xl">
+      <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
+        <Reveal className="mb-8 sm:mb-12 lg:mb-16 max-w-xl">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">The team</p>
           <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">People, not a call centre</h2>
         </Reveal>
@@ -131,7 +131,7 @@ export default function About() {
       </section>
 
       <section className="border-y border-stone bg-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+        <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:py-24 lg:px-10">
           <Reveal stagger={0.12} className="grid grid-cols-2 gap-10 lg:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label}>
@@ -143,8 +143,8 @@ export default function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-        <Reveal className="mb-16 max-w-xl">
+      <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
+        <Reveal className="mb-8 sm:mb-12 lg:mb-16 max-w-xl">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">Clients</p>
           <h2 className="font-display text-[clamp(2rem,4vw,3.2rem)] leading-tight">In their words</h2>
         </Reveal>

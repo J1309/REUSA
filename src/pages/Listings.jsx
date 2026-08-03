@@ -44,7 +44,7 @@ export default function Listings() {
 
   return (
     <>
-      <header className="mx-auto max-w-7xl px-6 pb-12 pt-36 lg:px-10">
+      <header className="mx-auto max-w-7xl px-6 pb-12 pt-28 sm:pt-32 lg:pt-36 lg:px-10">
         <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">Portfolio</p>
         <h1 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.05]">
           Every home we're representing right now.
@@ -100,7 +100,7 @@ export default function Listings() {
 
       <section className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
         {results.length === 0 ? (
-          <div className="rounded-2xl bg-white py-24 text-center">
+          <div className="rounded-2xl bg-white py-12 sm:py-16 lg:py-24 text-center">
             <p className="font-display text-2xl">Nothing matches those filters.</p>
             <p className="mt-2 text-sm text-muted">
               Off-market inventory moves fast — call us and we'll check what isn't listed yet.

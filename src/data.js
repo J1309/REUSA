@@ -120,7 +120,7 @@ export const propertyTypes = ['All', ...new Set(properties.map((p) => p.type))]
 export const testimonials = [
   {
     quote:
-      'We had been looking for eleven months on our own. Aurelia found the house in three weeks and negotiated eighty thousand off the ask.',
+      'We had been looking for eleven months on our own. Realtor LG found the house in three weeks and negotiated eighty thousand off the ask.',
     name: 'Dana & Michael R.',
     place: 'Montecito, CA',
     stars: 5,
