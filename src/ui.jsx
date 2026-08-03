@@ -36,14 +36,57 @@ export function Img({ src, alt, className = '', wrapClass = '', priority = false
   )
 }
 
-/* Reveal — scroll-triggered fade/slide. `stagger` animates direct children. */
-export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 0, as: Tag = 'div' }) {
+/* ------------------------------------------------------------------ *
+ * GSAP's ticker is requestAnimationFrame-driven, so it stalls whenever the
+ * page isn't painting — a hidden tab, a preview pane that isn't displayed,
+ * a backgrounded window. Every `gsap.from` below starts from opacity 0, so
+ * a stalled ticker leaves that start state applied forever: content that is
+ * invisible but still laid out and still clickable.
+ *
+ * Probe rAF once for the whole app. If it never fires, skip the entrance
+ * animations entirely and render everything in its natural state. Doubles as
+ * the reduced-motion opt-out.
+ * ------------------------------------------------------------------ */
+let motionProbe
+const canAnimate = () =>
+  (motionProbe ??= new Promise((resolve) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return resolve(false)
+    // Already painting: decide now. Waiting even one frame would show the
+    // hero headline unanimated before the start state lands — a visible flash.
+    if (document.visibilityState === 'visible') return resolve(true)
+    // Hidden at load. It may still come to the front, so give rAF a moment;
+    // if no frame arrives, the ticker is frozen and animating would hide things.
+    const timer = setTimeout(() => resolve(false), 1000)
+    requestAnimationFrame(() => {
+      clearTimeout(timer)
+      resolve(true)
+    })
+  }))
+
+/* Runs `build` inside a gsap.context, but only if animation can actually
+   play. Attach the returned ref to the element that scopes the animation. */
+export function useGsap(build, deps) {
   const ref = useRef(null)
   useEffect(() => {
-    const el = ref.current
-    const targets = stagger ? el.children : el
-    const ctx = gsap.context(() => {
-      gsap.from(targets, {
+    let ctx
+    let cancelled = false
+    canAnimate().then((ok) => {
+      if (ok && !cancelled) ctx = gsap.context(() => build(ref.current), ref.current)
+    })
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps)
+  return ref
+}
+
+/* Reveal — scroll-triggered fade/slide. `stagger` animates direct children. */
+export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 0, as: Tag = 'div' }) {
+  const ref = useGsap(
+    (el) => {
+      gsap.from(stagger ? el.children : el, {
         y,
         opacity: 0,
         duration: 0.9,
@@ -52,9 +95,9 @@ export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 
         ease: 'power3.out',
         scrollTrigger: { trigger: el, start: 'top 85%', once: true },
       })
-    }, el)
-    return () => ctx.revert()
-  }, [y, delay, stagger])
+    },
+    [y, delay, stagger],
+  )
   return (
     <Tag ref={ref} className={className}>
       {children}
@@ -62,13 +105,14 @@ export function Reveal({ children, className = '', y = 40, delay = 0, stagger = 
   )
 }
 
-/* Counter — counts up once when scrolled into view. */
+/* Counter — counts up once when scrolled into view.
+   Renders the final figure outright when animation can't run, so it never
+   sits at a misleading zero. */
 export function Counter({ to, suffix = '', className = '' }) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    const obj = { n: 0 }
-    const ctx = gsap.context(() => {
+  const ref = useGsap(
+    (el) => {
+      const obj = { n: 0 }
+      el.textContent = '0' + suffix
       gsap.to(obj, {
         n: to,
         duration: 2,
@@ -78,21 +122,21 @@ export function Counter({ to, suffix = '', className = '' }) {
         },
         scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       })
-    }, el)
-    return () => ctx.revert()
-  }, [to, suffix])
+    },
+    [to, suffix],
+  )
   return (
     <span ref={ref} className={className}>
-      0{suffix}
+      {to.toLocaleString('en-US')}
+      {suffix}
     </span>
   )
 }
 
 /* Split headline — words rise in on mount. */
 export function SplitText({ text, className = '', delay = 0 }) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  const ref = useGsap(
+    () => {
       gsap.from('.word > span', {
         yPercent: 110,
         duration: 1.1,
@@ -100,9 +144,9 @@ export function SplitText({ text, className = '', delay = 0 }) {
         stagger: 0.06,
         ease: 'power4.out',
       })
-    }, ref)
-    return () => ctx.revert()
-  }, [delay])
+    },
+    [delay],
+  )
   return (
     <span ref={ref} className={className}>
       {text.split(' ').map((w, i) => (

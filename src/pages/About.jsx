@@ -1,9 +1,8 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { stats, testimonials } from '../data.js'
-import { Img, Reveal, Counter, Stars, btnPrimary, btnGhost } from '../ui.jsx'
+import { Img, Reveal, Counter, Stars, useGsap, btnPrimary, btnGhost } from '../ui.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -32,19 +31,15 @@ const services = [
 
 /* Story copy fades in line by line as it scrolls through the viewport. */
 function Story() {
-  const ref = useRef(null)
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('p', {
-        opacity: 0.15,
-        y: 24,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 75%', end: 'bottom 60%', scrub: 0.6 },
-      })
-    }, ref)
-    return () => ctx.revert()
+  const ref = useGsap((el) => {
+    gsap.from('p', {
+      opacity: 0.15,
+      y: 24,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 75%', end: 'bottom 60%', scrub: 0.6 },
+    })
   }, [])
 
   return (
