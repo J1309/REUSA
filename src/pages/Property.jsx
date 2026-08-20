@@ -1,7 +1,71 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { byId, properties, usd } from '../data.js'
+import { usd } from '../data.js'
+import { useListings } from '../store.js'
+import { monthlyPayment } from '../mortgage.js'
 import { Img, Reveal, PropertyCard, btnPrimary, btnGhost } from '../ui.jsx'
+
+/* Estimated monthly payment — a self-contained real-estate staple. */
+function MortgageCalc({ price }) {
+  const [downPct, setDownPct] = useState(20)
+  const [rate, setRate] = useState(6.5)
+  const [years, setYears] = useState(30)
+
+  const down = Math.round((price * downPct) / 100)
+  const monthly = useMemo(
+    () => monthlyPayment(price - down, rate, years),
+    [price, down, rate, years],
+  )
+
+  const row = 'flex items-center justify-between gap-4 text-sm'
+  const range = 'w-40 accent-sea'
+
+  return (
+    <div className="rounded-2xl border border-stone bg-white p-8">
+      <p className="text-xs uppercase tracking-[0.3em] text-muted">Payment estimate</p>
+      <p className="mt-4 font-display text-4xl">
+        {usd(Math.round(monthly))}
+        <span className="text-base text-muted">/mo</span>
+      </p>
+      <p className="mt-1 text-sm text-muted">Principal & interest, {usd(down)} down</p>
+
+      <div className="mt-6 space-y-4">
+        <label className={row}>
+          <span className="text-muted">Down payment</span>
+          <span className="flex items-center gap-3">
+            <input type="range" min="0" max="60" value={downPct} onChange={(e) => setDownPct(+e.target.value)} className={range} />
+            <span className="w-10 text-right tabular-nums">{downPct}%</span>
+          </span>
+        </label>
+        <label className={row}>
+          <span className="text-muted">Interest rate</span>
+          <span className="flex items-center gap-3">
+            <input type="range" min="2" max="12" step="0.1" value={rate} onChange={(e) => setRate(+e.target.value)} className={range} />
+            <span className="w-10 text-right tabular-nums">{rate}%</span>
+          </span>
+        </label>
+        <label className={row}>
+          <span className="text-muted">Term</span>
+          <span className="flex items-center gap-3">
+            {[15, 30].map((y) => (
+              <button
+                key={y}
+                type="button"
+                onClick={() => setYears(y)}
+                className={`rounded-full px-3 py-1 text-xs transition-colors ${years === y ? 'bg-ink text-sand' : 'border border-stone text-muted'}`}
+              >
+                {y} yr
+              </button>
+            ))}
+          </span>
+        </label>
+      </div>
+      <p className="mt-6 text-[11px] leading-relaxed text-muted">
+        Estimate only — excludes taxes, insurance and HOA. Not a loan offer.
+      </p>
+    </div>
+  )
+}
 
 /* Lightbox on the native <dialog> — free backdrop, focus trap and Esc key. */
 function Lightbox({ images, index, onClose, onIndex }) {
@@ -58,7 +122,8 @@ function Lightbox({ images, index, onClose, onIndex }) {
 
 export default function Property() {
   const { id } = useParams()
-  const p = byId(id)
+  const list = useListings()
+  const p = list.find((x) => x.id === id)
   const [light, setLight] = useState(null)
 
   if (!p) {
@@ -81,7 +146,7 @@ export default function Property() {
     ['Price / sqft', usd(Math.round(p.price / p.sqft))],
   ]
 
-  const similar = properties.filter((x) => x.id !== p.id).slice(0, 3)
+  const similar = list.filter((x) => x.id !== p.id).slice(0, 3)
 
   return (
     <>
@@ -154,8 +219,8 @@ export default function Property() {
           </Reveal>
         </div>
 
-        {/* Agent card sticks alongside the copy on desktop. */}
-        <Reveal className="lg:sticky lg:top-28 lg:self-start">
+        {/* Agent card + payment estimate stick alongside the copy on desktop. */}
+        <Reveal className="space-y-6 lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-2xl bg-ink p-8 text-sand">
             <p className="text-xs uppercase tracking-[0.3em] text-sand/40">Listing agent</p>
             <p className="mt-4 font-display text-2xl">Elena Marsh</p>
@@ -173,6 +238,8 @@ export default function Property() {
               </a>
             </div>
           </div>
+
+          <MortgageCalc price={p.price} />
         </Reveal>
       </section>
 

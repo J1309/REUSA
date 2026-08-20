@@ -463,7 +463,12 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col gap-2 border-t border-sand/10 pt-6 text-xs text-sand/40 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} Realtor LG. All rights reserved.</p>
-          <p>Equal Housing Opportunity</p>
+          <p className="flex gap-4">
+            <span>Equal Housing Opportunity</span>
+            <Link to="/admin" className="transition-colors hover:text-sand">
+              Owner
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { properties, propertyTypes, usd } from '../data.js'
+import { usd } from '../data.js'
+import { useListings, useListingTypes } from '../store.js'
 import { PropertyCard, Reveal, btn } from '../ui.jsx'
 
 const bedOptions = ['Any', '2', '3', '4', '5']
@@ -16,6 +17,8 @@ export default function Listings() {
   // The URL is the filter state — the Home search bar links straight into it.
   const [params, setParams] = useSearchParams()
   const [layout, setLayout] = useState('grid')
+  const properties = useListings()
+  const propertyTypes = useListingTypes()
 
   const q = params.get('q') ?? ''
   const type = params.get('type') ?? 'All'
@@ -37,7 +40,7 @@ export default function Listings() {
           (!max || p.price <= Number(max)) &&
           (beds === 'Any' || p.beds >= Number(beds)),
       ),
-    [q, type, max, beds],
+    [properties, q, type, max, beds],
   )
 
   const field = 'min-h-11 rounded-full border border-stone bg-white px-4 text-sm outline-none transition-colors focus:border-accent'

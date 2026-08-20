@@ -5,7 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // three is ~490kB — decorative only, so it must never block the hero paint.
 const ThreeAmbient = lazy(() => import('../ThreeAmbient.jsx'))
-import { properties, propertyTypes, stats, testimonials } from '../data.js'
+import { stats, testimonials } from '../data.js'
+import { useListings, useListingTypes } from '../store.js'
 import { Img, Reveal, Counter, SplitText, Stars, PropertyCard, btnPrimary, btnGhost } from '../ui.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -103,6 +104,7 @@ function Hero() {
 
 function SearchBar() {
   const navigate = useNavigate()
+  const propertyTypes = useListingTypes()
   const submit = (e) => {
     e.preventDefault()
     const f = new FormData(e.currentTarget)
@@ -157,7 +159,10 @@ function SearchBar() {
 }
 
 function Featured() {
-  const featured = properties.filter((p) => p.featured)
+  const list = useListings()
+  // Prefer flagged homes; fall back to the newest few so the section is never empty.
+  const flagged = list.filter((p) => p.featured)
+  const featured = (flagged.length ? flagged : list).slice(0, 3)
   return (
     <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20 lg:py-28 lg:px-10">
       <div className="mb-8 sm:mb-10 lg:mb-14 flex flex-wrap items-end justify-between gap-6">

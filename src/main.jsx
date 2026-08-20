@@ -18,6 +18,7 @@ const Home = lazy(() => import('./pages/Home.jsx'))
 const Listings = lazy(() => import('./pages/Listings.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Property = lazy(() => import('./pages/Property.jsx'))
+const Admin = lazy(() => import('./pages/Admin.jsx'))
 
 let lenis
 
@@ -76,6 +77,7 @@ function App() {
             <Route path="/listings" element={<Listings />} />
             <Route path="/listings/:id" element={<Property />} />
             <Route path="/about" element={<About />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </Suspense>
