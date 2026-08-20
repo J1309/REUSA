@@ -134,11 +134,6 @@ function Gate({ onPass }) {
     }
   }
 
-  const useDemoKey = () => {
-    setValue(PASSPHRASE)
-    setError(false)
-  }
-
   return (
     <div className="relative flex min-h-[80vh] items-center justify-center px-4 py-12">
       <div className="pointer-events-none absolute -top-12 left-1/2 -z-10 h-96 w-[36rem] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl" />
@@ -209,16 +204,7 @@ function Gate({ onPass }) {
           </button>
         </form>
 
-        <div className="mt-6 flex flex-col items-center gap-3 border-t border-stone/60 pt-5 text-center">
-          <button
-            type="button"
-            onClick={useDemoKey}
-            className="group inline-flex items-center gap-1.5 rounded-full bg-sand/70 px-3 py-1 text-xs text-muted transition-colors hover:bg-stone/80 hover:text-ink"
-          >
-            <span>Demo Key: <strong className="font-mono text-ink">realtorlg</strong></span>
-            <span className="text-[10px] text-sea opacity-0 transition-opacity group-hover:opacity-100">(fill)</span>
-          </button>
-
+        <div className="mt-6 border-t border-stone/60 pt-5 text-center">
           <Link to="/" className="text-xs text-muted transition-colors hover:text-ink">
             ← Return to public website
           </Link>
