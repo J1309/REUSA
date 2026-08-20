@@ -39,6 +39,12 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
 
 /* Scroll reveal. Content is VISIBLE BY DEFAULT — the hidden start state only
    applies once JS has added `js-reveal` to <html> AND the element itself has
