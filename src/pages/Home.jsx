@@ -4,7 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { stats, testimonials, usd } from '../data.js'
 import { useListings, useListingTypes } from '../store.js'
-import { Img, Reveal, Counter, SplitText, Stars, PropertyCard, btnPrimary, btnGhost, btn } from '../ui.jsx'
+import { Img, Reveal, Counter, SplitText, Stars, PropertyCard, btnPrimary, btnLight, btnGhost, btn } from '../ui.jsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -109,7 +109,7 @@ function Hero() {
             <Reveal delay={0.6} stagger={0.1} className="mt-7 sm:mt-9 flex flex-wrap items-center gap-3">
               <Link
                 to="/listings"
-                className={`${btnPrimary} bg-sand text-ink hover:bg-accent shadow-lg hover:shadow-accent/20 w-full sm:w-auto`}
+                className={`${btnLight} w-full sm:w-auto font-medium shadow-lg hover:shadow-accent/20`}
               >
                 Explore Portfolio
               </Link>

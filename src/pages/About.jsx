@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { stats, testimonials } from '../data.js'
-import { Img, Reveal, Counter, Stars, btnPrimary, btnGhost } from '../ui.jsx'
+import { Img, Reveal, Counter, Stars, btnPrimary, btnLight, btnGhost } from '../ui.jsx'
 
 // No agent-*.jpg assets exist yet — these stand in. Drop real headshots at
 // /public/images/agents/agent-elena-marsh.webp etc. and swap the paths here.
@@ -156,7 +156,7 @@ export default function About() {
             Twenty minutes, no obligation, and you'll leave knowing what your options actually are.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <a href="tel:+18005550142" className={`${btnPrimary} bg-sand text-ink hover:bg-accent`}>
+            <a href="tel:+18005550142" className={btnLight}>
               Call +1 (800) 555-0142
             </a>
             <Link to="/listings" className={`${btnGhost} text-sand`}>

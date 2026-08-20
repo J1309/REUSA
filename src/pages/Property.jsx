@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { usd } from '../data.js'
 import { useListings } from '../store.js'
 import { monthlyPayment } from '../mortgage.js'
-import { Img, Reveal, PropertyCard, btnPrimary, btnGhost } from '../ui.jsx'
+import { Img, Reveal, PropertyCard, btnPrimary, btnLight, btnGhost } from '../ui.jsx'
 
 /* ------------------------------------------------------------------ *
  * Interactive Tour Scheduling Modal
@@ -658,7 +658,7 @@ export default function Property() {
               <div className="mt-6 flex flex-col gap-2.5">
                 <button
                   onClick={() => setTourOpen(true)}
-                  className={`${btnPrimary} bg-sand text-ink hover:bg-accent`}
+                  className={btnLight}
                 >
                   Schedule Private Tour
                 </button>

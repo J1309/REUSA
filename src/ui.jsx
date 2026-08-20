@@ -239,6 +239,7 @@ export function Stars({ n = 5 }) {
 export const btn =
   'inline-flex items-center justify-center gap-2 rounded-full px-7 min-h-11 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-100'
 export const btnPrimary = `${btn} bg-ink text-sand hover:bg-sea`
+export const btnLight = `${btn} bg-sand text-ink hover:bg-accent shadow-md`
 export const btnGhost = `${btn} border border-current/30 text-current hover:bg-current/10`
 
 /* ScrollProgress — fixed bar driven by Lenis/native scroll. */
