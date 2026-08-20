@@ -43,24 +43,25 @@ export default function Listings() {
     [properties, q, type, max, beds],
   )
 
-  const field = 'min-h-11 rounded-full border border-stone bg-white px-4 text-sm outline-none transition-colors focus:border-accent'
+  const field = 'min-h-11 rounded-full border border-stone bg-white px-3.5 sm:px-4 text-xs sm:text-sm outline-none transition-colors focus:border-accent'
 
   return (
     <>
-      <header className="mx-auto max-w-7xl px-6 pb-12 pt-28 sm:pt-32 lg:pt-36 lg:px-10">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">Portfolio</p>
-        <h1 className="max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.05]">
-          Every home we're representing right now.
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 pb-8 pt-24 sm:pb-12 sm:pt-32 lg:pt-36 lg:px-10">
+        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-sea font-semibold">Active Portfolio</p>
+        <h1 className="max-w-2xl font-display text-[clamp(2.2rem,5.5vw,4rem)] leading-[1.05] text-ink">
+          Every residence we represent.
         </h1>
       </header>
 
-      <div className="sticky top-16 z-30 border-y border-stone bg-sand/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-6 py-4 lg:px-10">
+      {/* Sticky Filter Bar */}
+      <div className="sticky top-14 sm:top-16 z-30 border-y border-stone/80 bg-sand/95 backdrop-blur-md shadow-sm">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 lg:px-10">
           <input
             value={q}
             onChange={(e) => set('q', e.target.value)}
-            placeholder="Search city or state"
-            className={`${field} flex-1 min-w-45`}
+            placeholder="Search location or title..."
+            className={`${field} flex-1 min-w-[140px] sm:min-w-[180px]`}
             aria-label="Search location"
           />
           <select value={type} onChange={(e) => set('type', e.target.value)} className={field} aria-label="Property type">
@@ -71,27 +72,27 @@ export default function Listings() {
           <select value={beds} onChange={(e) => set('beds', e.target.value)} className={field} aria-label="Minimum bedrooms">
             {bedOptions.map((b) => (
               <option key={b} value={b}>
-                {b === 'Any' ? 'Any beds' : `${b}+ beds`}
+                {b === 'Any' ? 'Any Beds' : `${b}+ Beds`}
               </option>
             ))}
           </select>
           <select value={max} onChange={(e) => set('max', e.target.value)} className={field} aria-label="Maximum price">
             {priceOptions.map(([label, value]) => (
               <option key={label} value={value}>
-                {label === 'Any' ? 'Any price' : `Under ${label}`}
+                {label === 'Any' ? 'Any Price' : `Under ${label}`}
               </option>
             ))}
           </select>
 
-          <div className="ml-auto flex items-center gap-3">
-            <span className="hidden text-sm text-muted sm:inline">{results.length} homes</span>
-            <div className="flex rounded-full border border-stone bg-white p-1">
+          <div className="flex items-center gap-3 sm:ml-auto">
+            <span className="text-xs text-muted font-medium">{results.length} residences</span>
+            <div className="hidden sm:flex rounded-full border border-stone bg-white p-1">
               {['grid', 'row'].map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setLayout(mode)}
                   aria-pressed={layout === mode}
-                  className={`${btn} min-h-9 px-4 text-xs ${layout === mode ? 'bg-ink text-sand' : 'text-muted'}`}
+                  className={`${btn} min-h-8 px-3 text-xs ${layout === mode ? 'bg-ink text-sand' : 'text-muted'}`}
                 >
                   {mode === 'grid' ? 'Grid' : 'List'}
                 </button>
@@ -101,24 +102,27 @@ export default function Listings() {
         </div>
       </div>
 
-      <section className="mx-auto max-w-7xl px-6 py-14 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 lg:px-10">
         {results.length === 0 ? (
-          <div className="rounded-2xl bg-white py-12 sm:py-16 lg:py-24 text-center">
-            <p className="font-display text-2xl">Nothing matches those filters.</p>
-            <p className="mt-2 text-sm text-muted">
-              Off-market inventory moves fast — call us and we'll check what isn't listed yet.
+          <div className="rounded-3xl border border-stone/80 bg-white py-12 sm:py-16 lg:py-24 text-center px-4">
+            <p className="font-display text-2xl text-ink">Nothing matches those filters.</p>
+            <p className="mt-2 text-sm text-muted max-w-md mx-auto">
+              Off-market and private inventory moves fast — contact us directly to explore residences not yet listed publicly.
             </p>
-            <button onClick={() => setParams({}, { replace: true })} className="mt-6 text-sm font-medium text-sea">
-              Clear filters
+            <button
+              onClick={() => setParams({}, { replace: true })}
+              className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-sea hover:underline"
+            >
+              Clear all filters
             </button>
           </div>
         ) : (
           <div
             key={layout + results.length}
-            className={layout === 'grid' ? 'grid gap-7 md:grid-cols-2 lg:grid-cols-3' : 'flex flex-col gap-6'}
+            className={layout === 'grid' ? 'grid gap-6 sm:gap-7 sm:grid-cols-2 lg:grid-cols-3' : 'flex flex-col gap-6'}
           >
             {results.map((p, i) => (
-              <div key={p.id} className="animate-[fadeIn_0.6s_ease_both]" style={{ animationDelay: `${i * 60}ms` }}>
+              <div key={p.id} className="animate-[fadeIn_0.5s_ease_both]" style={{ animationDelay: `${i * 50}ms` }}>
                 <PropertyCard p={p} layout={layout} priority={i < 2} />
               </div>
             ))}
@@ -126,10 +130,10 @@ export default function Listings() {
         )}
       </section>
 
-      <Reveal className="mx-auto max-w-7xl px-6 pb-28 lg:px-10">
-        <p className="text-sm text-muted">
+      <Reveal className="mx-auto max-w-7xl px-4 sm:px-6 pb-24 sm:pb-28 lg:px-10">
+        <p className="text-xs sm:text-sm text-muted">
           Prices shown are current asking prices, from {usd(Math.min(...properties.map((p) => p.price)))} to{' '}
-          {usd(Math.max(...properties.map((p) => p.price)))}. Off-market inventory available on request.
+          {usd(Math.max(...properties.map((p) => p.price)))}. Off-market acquisitions available upon confidential request.
         </p>
       </Reveal>
     </>

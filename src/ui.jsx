@@ -275,7 +275,8 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   // Home has a dark full-bleed hero; other pages start on the light background.
-  const overHero = pathname === '/' && !scrolled
+  // When mobile menu is open, always use the light background palette.
+  const overHero = pathname === '/' && !scrolled && !open
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -289,10 +290,10 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
-        scrolled || open ? 'bg-sand/90 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]' : 'bg-transparent'
+        scrolled || open ? 'bg-sand/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]' : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4 lg:px-10">
         <Link
           to="/"
           className={`flex min-h-11 items-center font-display text-xl tracking-tight transition-colors ${overHero ? 'text-sand' : 'text-ink'}`}
@@ -332,7 +333,7 @@ export function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
-          className={`grid size-11 place-items-center md:hidden ${overHero ? 'text-sand' : 'text-ink'}`}
+          className={`grid size-11 place-items-center md:hidden rounded-full transition-colors ${overHero ? 'text-sand hover:bg-sand/10' : 'text-ink hover:bg-stone/40'}`}
         >
           <span className="relative block h-3 w-6">
             <span
@@ -346,14 +347,25 @@ export function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-stone bg-sand px-6 pb-6 md:hidden">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} className="flex min-h-14 items-center font-display text-2xl">
-              {l.label}
-            </NavLink>
-          ))}
-          <a href="#contact" className={`${btnPrimary} mt-2 w-full`}>
-            Book a call
+        <div className="border-t border-stone/80 bg-sand/98 px-6 pb-8 pt-2 md:hidden shadow-xl animate-[fadeIn_0.2s_ease]">
+          <div className="flex flex-col divide-y divide-stone/50">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                className={({ isActive }) =>
+                  `flex min-h-14 items-center justify-between font-display text-2xl transition-colors ${
+                    isActive ? 'text-sea font-semibold' : 'text-ink'
+                  }`
+                }
+              >
+                <span>{l.label}</span>
+                <span className="text-sm font-sans text-muted">→</span>
+              </NavLink>
+            ))}
+          </div>
+          <a href="#contact" onClick={() => setOpen(false)} className={`${btnPrimary} mt-6 w-full min-h-12 shadow-md`}>
+            Book a consultation
           </a>
         </div>
       )}

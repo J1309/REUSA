@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { usd } from '../data.js'
 import { useListings } from '../store.js'
 import { monthlyPayment } from '../mortgage.js'
-import { Img, Reveal, PropertyCard, btnPrimary, btnGhost, btn } from '../ui.jsx'
+import { Img, Reveal, PropertyCard, btnPrimary, btnGhost } from '../ui.jsx'
 
 /* ------------------------------------------------------------------ *
  * Interactive Tour Scheduling Modal
@@ -27,21 +27,21 @@ function TourModal({ isOpen, property, onClose }) {
   }
 
   const dates = [
-    { id: 'tomorrow', label: 'Tomorrow', sub: 'Priority Slot' },
+    { id: 'tomorrow', label: 'Tomorrow', sub: 'Priority' },
     { id: 'day-after', label: 'In 2 Days', sub: 'Flexible' },
-    { id: 'weekend', label: 'This Weekend', sub: 'Open Window' },
+    { id: 'weekend', label: 'Weekend', sub: 'Open Window' },
   ]
 
   const times = ['10:00 AM', '1:30 PM', '4:00 PM', '6:00 PM']
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
       <div className="fixed inset-0 bg-ink/75 backdrop-blur-sm transition-opacity" onClick={onClose} />
-      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-stone/50 bg-white p-7 shadow-2xl transition-all sm:p-9">
+      <div className="relative w-full max-w-[94vw] sm:max-w-lg overflow-hidden rounded-3xl border border-stone/50 bg-white p-5 sm:p-8 shadow-2xl transition-all max-h-[90vh] overflow-y-auto">
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-5 top-5 flex size-9 items-center justify-center rounded-full bg-sand text-muted hover:text-ink transition-colors"
+          className="absolute right-4 top-4 flex size-8 sm:size-9 items-center justify-center rounded-full bg-sand text-muted hover:text-ink transition-colors"
           aria-label="Close modal"
         >
           ×
@@ -61,23 +61,23 @@ function TourModal({ isOpen, property, onClose }) {
           </div>
         ) : (
           <div>
-            <div className="mb-6">
-              <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-sea">Private Walkthrough</span>
+            <div className="mb-5 pr-8">
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-sea">Private Walkthrough</span>
               <h3 className="mt-1 font-display text-2xl sm:text-3xl text-ink">Request a Tour</h3>
               <p className="mt-1 text-xs text-muted truncate">{property.title} · {property.location}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               {/* Date selection */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">Select Day</label>
-                <div className="grid grid-cols-3 gap-2.5">
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted mb-1.5">Select Day</label>
+                <div className="grid grid-cols-3 gap-2">
                   {dates.map((d) => (
                     <button
                       key={d.id}
                       type="button"
                       onClick={() => setDate(d.id)}
-                      className={`rounded-2xl border p-3 text-left transition-all ${
+                      className={`rounded-xl sm:rounded-2xl border p-2.5 sm:p-3 text-left transition-all ${
                         date === d.id
                           ? 'border-sea bg-sea/5 text-ink ring-1 ring-sea'
                           : 'border-stone bg-sand/30 text-muted hover:border-accent'
@@ -92,8 +92,8 @@ function TourModal({ isOpen, property, onClose }) {
 
               {/* Time selection */}
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-2">Preferred Window</label>
-                <div className="grid grid-cols-4 gap-2">
+                <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted mb-1.5">Preferred Window</label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {times.map((t) => (
                     <button
                       key={t}
@@ -114,7 +114,7 @@ function TourModal({ isOpen, property, onClose }) {
               {/* Contact info */}
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1">Your Name *</label>
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted mb-1">Your Name *</label>
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -124,7 +124,7 @@ function TourModal({ isOpen, property, onClose }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-muted mb-1">Phone or Email *</label>
+                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-muted mb-1">Phone or Email *</label>
                   <input
                     value={contact}
                     onChange={(e) => setContact(e.target.value)}
@@ -160,17 +160,14 @@ function MortgageCalc({ price }) {
     [price, down, rate, years],
   )
 
-  const row = 'flex items-center justify-between gap-4 text-sm'
-  const range = 'w-36 accent-sea'
-
   return (
-    <div id="financing" className="rounded-3xl border border-stone/80 bg-white p-7 sm:p-9 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone/60 pb-6">
+    <div id="financing" className="rounded-3xl border border-stone/80 bg-white p-5 sm:p-8 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone/60 pb-5 sm:pb-6">
         <div>
-          <span className="text-xs uppercase tracking-[0.25em] text-sea font-semibold">Financing Studio</span>
+          <span className="text-[11px] uppercase tracking-[0.25em] text-sea font-semibold">Financing Studio</span>
           <h3 className="mt-1 font-display text-2xl text-ink">Estimated Monthly Investment</h3>
         </div>
-        <div className="text-right">
+        <div className="sm:text-right">
           <p className="font-display text-3xl sm:text-4xl text-ink">
             {usd(Math.round(monthly))}
             <span className="text-base font-normal text-muted">/mo</span>
@@ -179,8 +176,8 @@ function MortgageCalc({ price }) {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 sm:grid-cols-3">
-        <div className="space-y-2 rounded-2xl bg-sand/40 p-4 border border-stone/60">
+      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="space-y-2 rounded-2xl bg-sand/40 p-3.5 sm:p-4 border border-stone/60">
           <div className="flex justify-between text-xs font-semibold uppercase tracking-wider text-muted">
             <span>Down Payment</span>
             <span className="font-mono text-ink">{downPct}% ({usd(down)})</span>
@@ -195,7 +192,7 @@ function MortgageCalc({ price }) {
           />
         </div>
 
-        <div className="space-y-2 rounded-2xl bg-sand/40 p-4 border border-stone/60">
+        <div className="space-y-2 rounded-2xl bg-sand/40 p-3.5 sm:p-4 border border-stone/60">
           <div className="flex justify-between text-xs font-semibold uppercase tracking-wider text-muted">
             <span>Interest Rate</span>
             <span className="font-mono text-ink">{rate}%</span>
@@ -211,7 +208,7 @@ function MortgageCalc({ price }) {
           />
         </div>
 
-        <div className="space-y-2 rounded-2xl bg-sand/40 p-4 border border-stone/60">
+        <div className="space-y-2 rounded-2xl bg-sand/40 p-3.5 sm:p-4 border border-stone/60">
           <div className="flex justify-between text-xs font-semibold uppercase tracking-wider text-muted">
             <span>Loan Term</span>
             <span className="font-mono text-ink">{years} Years</span>
@@ -233,7 +230,7 @@ function MortgageCalc({ price }) {
         </div>
       </div>
 
-      <p className="mt-6 text-center text-xs text-muted">
+      <p className="mt-5 text-center text-xs text-muted leading-relaxed">
         Estimate excludes property taxes, insurance, and local assessments. Non-binding advisory calculation.
       </p>
     </div>
@@ -266,26 +263,26 @@ function Lightbox({ images, index, onClose, onIndex }) {
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
-      className="m-auto max-h-svh max-w-[95vw] bg-transparent backdrop:bg-ink/90 backdrop:backdrop-blur-md"
+      className="m-auto max-h-svh max-w-[96vw] bg-transparent backdrop:bg-ink/90 backdrop:backdrop-blur-md"
     >
       {index !== null && (
-        <div className="relative">
-          <img src={images[index]} alt="" className="max-h-[85svh] w-auto rounded-2xl object-contain shadow-2xl" />
-          <div className="mt-4 flex items-center justify-center gap-4 text-sand">
-            <button onClick={() => onIndex((index - 1 + images.length) % images.length)} className={`${btnGhost} min-h-11`}>
+        <div className="relative p-2">
+          <img src={images[index]} alt="" className="max-h-[80svh] w-auto rounded-2xl object-contain shadow-2xl mx-auto" />
+          <div className="mt-4 flex items-center justify-center gap-3 text-sand">
+            <button onClick={() => onIndex((index - 1 + images.length) % images.length)} className={`${btnGhost} min-h-10 px-4 text-xs`}>
               ← Prev
             </button>
-            <span className="text-sm font-mono tabular-nums">
+            <span className="text-xs sm:text-sm font-mono tabular-nums">
               {index + 1} / {images.length}
             </span>
-            <button onClick={() => onIndex((index + 1) % images.length)} className={`${btnGhost} min-h-11`}>
+            <button onClick={() => onIndex((index + 1) % images.length)} className={`${btnGhost} min-h-10 px-4 text-xs`}>
               Next →
             </button>
           </div>
           <button
             onClick={onClose}
             aria-label="Close gallery"
-            className="absolute -top-3 right-0 size-11 -translate-y-full text-3xl text-sand hover:text-accent transition-colors"
+            className="absolute top-0 right-0 size-10 text-2xl text-sand hover:text-accent transition-colors"
           >
             ×
           </button>
@@ -322,8 +319,8 @@ export default function Property() {
   if (!p) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-48 text-center">
-        <h1 className="font-display text-4xl">That listing is no longer available.</h1>
-        <p className="mt-3 text-muted">The residence may have been sold or moved off-market.</p>
+        <h1 className="font-display text-3xl sm:text-4xl text-ink">That listing is no longer available.</h1>
+        <p className="mt-3 text-sm text-muted">The residence may have been sold or moved off-market.</p>
         <Link to="/listings" className={`${btnPrimary} mt-8`}>
           Browse Available Residences
         </Link>
@@ -364,31 +361,31 @@ export default function Property() {
   return (
     <>
       {/* 1. Header & Context Breadcrumb */}
-      <div className="mx-auto max-w-7xl px-6 pt-24 sm:pt-28 lg:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone/60 pb-5">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-20 sm:pt-28 lg:px-10">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-stone/60 pb-4 sm:pb-5">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-wider text-muted">
             <Link to="/" className="hover:text-ink transition-colors">Home</Link>
             <span>/</span>
             <Link to="/listings" className="hover:text-ink transition-colors">Listings</Link>
             <span>/</span>
-            <span className="text-sea font-semibold truncate max-w-xs">{p.title}</span>
+            <span className="text-sea font-semibold truncate max-w-[140px] sm:max-w-xs">{p.title}</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1.5 rounded-full border border-stone bg-white px-3.5 py-1.5 text-xs font-medium text-muted hover:border-accent hover:text-ink transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 rounded-full border border-stone bg-white px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium text-muted hover:border-accent hover:text-ink transition-colors shadow-sm"
               title="Copy link to clipboard"
             >
               <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
-              {copied ? 'Link Copied!' : 'Share'}
+              {copied ? 'Copied!' : 'Share'}
             </button>
 
             <button
               onClick={toggleSave}
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all shadow-sm ${
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium transition-all shadow-sm ${
                 saved
                   ? 'border-red-300 bg-red-50 text-red-700'
                   : 'border-stone bg-white text-muted hover:border-accent hover:text-ink'
@@ -404,13 +401,13 @@ export default function Property() {
       </div>
 
       {/* 2. Hero Architectural Showcase Module (Image + Elevated Dossier Card) */}
-      <section className="mx-auto max-w-7xl px-6 pt-6 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 pt-5 sm:pt-6 lg:px-10">
         <div className="grid gap-6 lg:grid-cols-[1.55fr_1fr] items-start">
           {/* Left: Cinematic Image Container with Interactive Thumbnail Reel */}
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-stone/80 bg-stone/30 shadow-[0_20px_50px_-20px_rgba(12,31,28,0.15)] group">
+          <div className="relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] border border-stone/80 bg-stone/30 shadow-[0_20px_50px_-20px_rgba(12,31,28,0.15)] group">
             <div
               onClick={() => setLightboxIdx(activePhotoIdx)}
-              className="relative aspect-[16/11] cursor-pointer overflow-hidden sm:aspect-[16/10]"
+              className="relative aspect-[4/3] sm:aspect-[16/10] cursor-pointer overflow-hidden"
             >
               <img
                 src={p.images[activePhotoIdx] || p.images[0]}
@@ -421,13 +418,13 @@ export default function Property() {
               <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-80" />
 
               {/* Tag Pills */}
-              <div className="absolute left-6 top-6 flex flex-wrap gap-2">
-                <span className="rounded-full bg-sand/90 px-3.5 py-1 text-xs font-semibold tracking-wide text-ink backdrop-blur-md shadow-sm">
+              <div className="absolute left-3.5 top-3.5 sm:left-6 sm:top-6 flex flex-wrap gap-1.5 sm:gap-2">
+                <span className="rounded-full bg-sand/90 px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-semibold tracking-wide text-ink backdrop-blur-md shadow-sm">
                   {p.type}
                 </span>
                 {p.featured && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-ink/90 px-3.5 py-1 text-xs font-semibold text-accent backdrop-blur-md shadow-sm">
-                    ★ Featured Collection
+                  <span className="inline-flex items-center gap-1 rounded-full bg-ink/90 px-3 py-0.5 sm:py-1 text-[11px] sm:text-xs font-semibold text-accent backdrop-blur-md shadow-sm">
+                    ★ Featured
                   </span>
                 )}
               </div>
@@ -438,7 +435,7 @@ export default function Property() {
                   e.stopPropagation()
                   setLightboxIdx(activePhotoIdx)
                 }}
-                className="absolute right-6 top-6 inline-flex items-center gap-1.5 rounded-full bg-ink/80 px-3.5 py-1.5 text-xs font-medium text-sand backdrop-blur-md transition-transform hover:scale-105"
+                className="absolute right-3.5 top-3.5 sm:right-6 sm:top-6 inline-flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium text-sand backdrop-blur-md transition-transform hover:scale-105"
               >
                 <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -447,20 +444,20 @@ export default function Property() {
               </button>
 
               {/* Bottom Quick Title on Image */}
-              <div className="absolute inset-x-6 bottom-6 hidden sm:block text-sand">
-                <p className="text-xs uppercase tracking-[0.2em] text-sand/70">Realtor LG Exclusive</p>
-                <h2 className="mt-1 font-display text-2xl">{p.title}</h2>
+              <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6 text-sand">
+                <p className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-sand/70">Realtor LG Exclusive</p>
+                <h2 className="mt-0.5 font-display text-xl sm:text-2xl truncate">{p.title}</h2>
               </div>
             </div>
 
             {/* Thumbnail switcher bar */}
             {p.images.length > 1 && (
-              <div className="flex items-center gap-2.5 overflow-x-auto bg-ink/95 p-3.5 backdrop-blur-md">
+              <div className="flex items-center gap-2 overflow-x-auto bg-ink/95 p-2.5 sm:p-3.5 backdrop-blur-md">
                 {p.images.map((src, i) => (
                   <button
                     key={src}
                     onClick={() => setActivePhotoIdx(i)}
-                    className={`relative aspect-[4/3] w-18 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${
+                    className={`relative aspect-[4/3] w-14 sm:w-18 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${
                       i === activePhotoIdx ? 'border-accent scale-105' : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
@@ -472,14 +469,14 @@ export default function Property() {
           </div>
 
           {/* Right: Elevated Executive Dossier Card */}
-          <div className="flex flex-col justify-between rounded-[2.5rem] border border-stone/80 bg-white p-7 sm:p-9 shadow-[0_25px_60px_-15px_rgba(12,31,28,0.12)]">
+          <div className="flex flex-col justify-between rounded-3xl sm:rounded-[2.5rem] border border-stone/80 bg-white p-5 sm:p-8 shadow-[0_25px_60px_-15px_rgba(12,31,28,0.12)]">
             {/* Header: Address & Bookmark */}
             <div>
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-sea">Prime Residence</span>
-                  <h1 className="mt-1 font-display text-3xl sm:text-4xl text-ink leading-tight">{p.title}</h1>
-                  <p className="mt-1 text-sm text-muted flex items-center gap-1.5">
+                  <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-sea">Prime Residence</span>
+                  <h1 className="mt-1 font-display text-2xl sm:text-4xl text-ink leading-tight">{p.title}</h1>
+                  <p className="mt-1 text-xs sm:text-sm text-muted flex items-center gap-1.5">
                     <svg className="size-4 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -490,27 +487,27 @@ export default function Property() {
 
                 <button
                   onClick={toggleSave}
-                  className={`size-11 shrink-0 rounded-2xl border flex items-center justify-center transition-all ${
+                  className={`size-10 sm:size-11 shrink-0 rounded-2xl border flex items-center justify-center transition-all ${
                     saved ? 'border-red-300 bg-red-50 text-red-600' : 'border-stone bg-sand/40 text-muted hover:text-ink'
                   }`}
                   aria-label="Save residence"
                 >
-                  <svg className={`size-5 ${saved ? 'fill-current' : 'fill-none'}`} viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className={`size-4 sm:size-5 ${saved ? 'fill-current' : 'fill-none'}`} viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
                 </button>
               </div>
 
               {/* Price & Financing Pill */}
-              <div className="mt-7 flex flex-wrap items-baseline justify-between gap-3 border-y border-stone/60 py-5">
+              <div className="mt-5 sm:mt-7 flex flex-wrap items-baseline justify-between gap-3 border-y border-stone/60 py-4 sm:py-5">
                 <div>
-                  <span className="text-[11px] uppercase tracking-wider text-muted">Asking Price</span>
-                  <p className="font-display text-3xl sm:text-4xl text-ink">{usd(p.price)}</p>
+                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-muted">Asking Price</span>
+                  <p className="font-display text-2xl sm:text-4xl text-ink">{usd(p.price)}</p>
                 </div>
 
                 <a
                   href="#financing"
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-stone bg-sand/40 px-3.5 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-stone/60"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-stone bg-sand/40 px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium text-ink transition-colors hover:bg-stone/60"
                 >
                   <span>Est. {usd(estMonthly)}/mo</span>
                   <span className="text-sea transition-transform group-hover:translate-x-0.5">›</span>
@@ -518,41 +515,41 @@ export default function Property() {
               </div>
 
               {/* Bold Architectural Spec Ticker */}
-              <div className="mt-6 grid grid-cols-3 gap-4 text-center rounded-2xl bg-sand/35 p-4 border border-stone/50">
+              <div className="mt-5 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-4 text-center rounded-2xl bg-sand/35 p-3 sm:p-4 border border-stone/50">
                 <div>
-                  <p className="font-display text-2xl sm:text-3xl text-ink">{p.beds}</p>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Beds</p>
+                  <p className="font-display text-xl sm:text-3xl text-ink">{p.beds}</p>
+                  <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Beds</p>
                 </div>
                 <div className="border-x border-stone/60">
-                  <p className="font-display text-2xl sm:text-3xl text-ink">{p.baths}</p>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Baths</p>
+                  <p className="font-display text-xl sm:text-3xl text-ink">{p.baths}</p>
+                  <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Baths</p>
                 </div>
                 <div>
-                  <p className="font-display text-2xl sm:text-3xl text-ink">{p.sqft.toLocaleString('en-US')}</p>
-                  <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Sq Ft</p>
+                  <p className="font-display text-xl sm:text-3xl text-ink">{p.sqft.toLocaleString('en-US')}</p>
+                  <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Sq Ft</p>
                 </div>
               </div>
             </div>
 
             {/* Bottom: Listing Agent & Primary CTA */}
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
               {/* Agent card */}
-              <div className="flex items-center justify-between rounded-2xl border border-stone/60 bg-white p-3.5 shadow-sm">
+              <div className="flex items-center justify-between rounded-2xl border border-stone/60 bg-white p-3 sm:p-3.5 shadow-sm">
                 <div className="flex items-center gap-3">
                   <img
                     src="/images/hero/hero-02.webp"
                     alt="Elena Marsh"
-                    className="size-12 rounded-full object-cover border border-stone/80"
+                    className="size-10 sm:size-12 rounded-full object-cover border border-stone/80"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-ink">Elena Marsh</p>
-                    <p className="text-[11px] text-muted">Principal Broker · DRE #01998421</p>
+                    <p className="text-xs sm:text-sm font-semibold text-ink">Elena Marsh</p>
+                    <p className="text-[10px] sm:text-[11px] text-muted">Principal Broker · DRE #01998421</p>
                   </div>
                 </div>
 
                 <a
                   href="tel:+18005550142"
-                  className="rounded-full border border-stone bg-sand/30 px-3.5 py-1.5 text-xs font-medium text-ink hover:bg-stone/60 transition-colors"
+                  className="rounded-full border border-stone bg-sand/30 px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium text-ink hover:bg-stone/60 transition-colors"
                 >
                   Contact
                 </a>
@@ -561,10 +558,10 @@ export default function Property() {
               {/* Primary Tour Button */}
               <button
                 onClick={() => setTourOpen(true)}
-                className="w-full rounded-2xl bg-ink py-4 text-center text-sand shadow-lg hover:bg-sea transition-all active:scale-[0.99] group"
+                className="w-full rounded-2xl bg-ink py-3.5 sm:py-4 text-center text-sand shadow-lg hover:bg-sea transition-all active:scale-[0.99] group"
               >
-                <span className="block text-base font-medium tracking-wide">Request a Private Tour</span>
-                <span className="block text-[11px] text-sand/60 transition-colors group-hover:text-sand/80">
+                <span className="block text-sm sm:text-base font-medium tracking-wide">Request a Private Tour</span>
+                <span className="block text-[10px] sm:text-[11px] text-sand/60 transition-colors group-hover:text-sand/80">
                   Earliest availability: Tomorrow at 10:00 AM
                 </span>
               </button>
@@ -574,55 +571,55 @@ export default function Property() {
       </section>
 
       {/* 3. Interactive Quick Spec Toolbar */}
-      <section className="mx-auto max-w-7xl px-6 pt-10 lg:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-stone/80 bg-white p-4 sm:p-5 shadow-sm">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-sea/10 px-3 py-1 text-xs font-semibold text-sea">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 pt-6 sm:pt-10 lg:px-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 rounded-3xl border border-stone/80 bg-white p-4 sm:p-5 shadow-sm">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span className="rounded-full bg-sea/10 px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] sm:text-xs font-semibold text-sea">
               Key Highlights
             </span>
-            {p.amenities.slice(0, 4).map((a) => (
-              <span key={a} className="rounded-full border border-stone/70 bg-sand/30 px-3 py-1 text-xs text-ink">
+            {p.amenities.slice(0, 3).map((a) => (
+              <span key={a} className="rounded-full border border-stone/70 bg-sand/30 px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] sm:text-xs text-ink">
                 {a}
               </span>
             ))}
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-muted">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs text-muted">
             <span>Built in <strong>{p.year}</strong></span>
             <span>•</span>
             <span><strong>{usd(pricePerSqft)}</strong> / sqft</span>
             <span>•</span>
             <a href="#financing" className="font-semibold text-sea hover:underline">
-              Financing Options ↓
+              Financing ↓
             </a>
           </div>
         </div>
       </section>
 
       {/* 4. Editorial Story & Specs Grid */}
-      <section className="mx-auto max-w-7xl px-6 py-14 lg:py-20 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-16 lg:py-20 lg:px-10">
+        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
           {/* Left: Narrative & Amenities */}
-          <div className="space-y-12">
+          <div className="space-y-10 sm:space-y-12">
             <Reveal>
               <span className="text-xs uppercase tracking-[0.25em] text-sea font-semibold">Architectural Narrative</span>
-              <h2 className="mt-2 font-display text-3xl sm:text-4xl text-ink">About this residence</h2>
-              <p className="mt-6 text-lg leading-relaxed text-muted">{p.description}</p>
+              <h2 className="mt-1 sm:mt-2 font-display text-2xl sm:text-4xl text-ink">About this residence</h2>
+              <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-relaxed text-muted">{p.description}</p>
             </Reveal>
 
             {/* Amenities Grid */}
             <Reveal>
-              <h3 className="font-display text-2xl text-ink">Curated Amenities & Finishes</h3>
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <h3 className="font-display text-xl sm:text-2xl text-ink">Curated Amenities & Finishes</h3>
+              <div className="mt-4 sm:mt-5 grid grid-cols-2 gap-2.5 sm:gap-3 sm:grid-cols-3">
                 {p.amenities.map((a) => (
                   <div
                     key={a}
-                    className="flex items-center gap-2.5 rounded-2xl border border-stone/80 bg-white p-4 text-sm text-ink shadow-sm"
+                    className="flex items-center gap-2 rounded-2xl border border-stone/80 bg-white p-3 sm:p-4 text-xs sm:text-sm text-ink shadow-sm"
                   >
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sea text-xs">
+                    <span className="flex size-5 sm:size-6 shrink-0 items-center justify-center rounded-full bg-accent/20 text-sea text-xs">
                       ✓
                     </span>
-                    <span className="font-medium text-xs sm:text-sm">{a}</span>
+                    <span className="font-medium truncate">{a}</span>
                   </div>
                 ))}
               </div>
@@ -636,11 +633,11 @@ export default function Property() {
 
           {/* Right: Comprehensive Specification Matrix */}
           <div className="space-y-8">
-            <Reveal className="rounded-3xl border border-stone/80 bg-white p-7 sm:p-9 shadow-sm">
-              <h3 className="font-display text-2xl text-ink border-b border-stone/60 pb-4">Residence Details</h3>
-              <div className="mt-6 divide-y divide-stone/60">
+            <Reveal className="rounded-3xl border border-stone/80 bg-white p-5 sm:p-8 shadow-sm">
+              <h3 className="font-display text-xl sm:text-2xl text-ink border-b border-stone/60 pb-4">Residence Details</h3>
+              <div className="mt-4 sm:mt-6 divide-y divide-stone/60">
                 {specsMatrix.map((s) => (
-                  <div key={s.label} className="flex items-center justify-between py-3.5 text-sm">
+                  <div key={s.label} className="flex items-center justify-between py-3 text-xs sm:text-sm">
                     <span className="flex items-center gap-2 text-muted">
                       <span>{s.icon}</span>
                       <span>{s.label}</span>
@@ -652,10 +649,10 @@ export default function Property() {
             </Reveal>
 
             {/* Brokerage Trust Card */}
-            <Reveal className="rounded-3xl bg-ink p-8 text-sand shadow-lg">
-              <span className="text-[11px] uppercase tracking-[0.25em] text-sand/40">Exclusive Representation</span>
-              <h4 className="mt-2 font-display text-2xl">Bespoke Advisory</h4>
-              <p className="mt-3 text-sm leading-relaxed text-sand/70">
+            <Reveal className="rounded-3xl bg-ink p-6 sm:p-8 text-sand shadow-lg">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-sand/40">Exclusive Representation</span>
+              <h4 className="mt-1 sm:mt-2 font-display text-xl sm:text-2xl">Bespoke Advisory</h4>
+              <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm leading-relaxed text-sand/70">
                 Every transaction is personally stewarded by our licensed principals with discrete private showings and fiduciary loyalty.
               </p>
               <div className="mt-6 flex flex-col gap-2.5">
@@ -675,17 +672,17 @@ export default function Property() {
       </section>
 
       {/* 5. "Latest in your area" / Similar Residences */}
-      <section className="border-t border-stone/80 bg-sand/20 py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <section className="border-t border-stone/80 bg-sand/20 py-12 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+          <div className="mb-8 sm:mb-10 flex flex-wrap items-end justify-between gap-4 sm:gap-6">
             <Reveal>
               <p className="text-xs uppercase tracking-[0.25em] text-sea font-semibold">Curated Portfolio</p>
-              <h2 className="mt-1 font-display text-3xl sm:text-4xl text-ink">Latest in your area</h2>
+              <h2 className="mt-1 font-display text-2xl sm:text-4xl text-ink">Latest in your area</h2>
             </Reveal>
             <Reveal>
               <Link
                 to="/listings"
-                className="group inline-flex items-center gap-2 rounded-full border border-stone bg-white px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-ink hover:border-accent shadow-sm transition-all"
+                className="group inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-stone bg-white px-4 py-2 sm:px-5 sm:py-2.5 text-xs font-semibold uppercase tracking-wider text-ink hover:border-accent shadow-sm transition-all"
               >
                 <span>View all listings</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -693,7 +690,7 @@ export default function Property() {
             </Reveal>
           </div>
 
-          <Reveal stagger={0.15} y={40} className="grid gap-7 md:grid-cols-3">
+          <Reveal stagger={0.15} y={40} className="grid gap-6 sm:gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {similar.map((s) => (
               <PropertyCard key={s.id} p={s} />
             ))}

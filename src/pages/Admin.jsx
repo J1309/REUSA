@@ -901,12 +901,12 @@ function Dashboard({ onEdit, onLogout }) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center rounded-2xl border border-stone bg-sand/40 p-1">
+            <div className="flex items-center rounded-2xl border border-stone bg-sand/40 p-1 overflow-x-auto max-w-full">
               {propertyTypes.map((type) => (
                 <button
                   key={type}
                   onClick={() => setFilterType(type)}
-                  className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-all ${
+                  className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-medium transition-all ${
                     filterType === type ? 'bg-ink text-sand shadow-sm' : 'text-muted hover:text-ink'
                   }`}
                 >
@@ -917,7 +917,7 @@ function Dashboard({ onEdit, onLogout }) {
 
             <button
               onClick={() => setFilterFeatured(!filterFeatured)}
-              className={`rounded-2xl border px-3.5 py-2 text-xs font-medium transition-all ${
+              className={`rounded-2xl border px-3.5 py-2 text-xs font-medium transition-all shrink-0 ${
                 filterFeatured
                   ? 'border-accent bg-accent/20 text-sea font-semibold'
                   : 'border-stone text-muted hover:text-ink'
