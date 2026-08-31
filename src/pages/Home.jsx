@@ -71,13 +71,13 @@ function Hero() {
       </div>
 
       <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
-        {/* Headline with premium serif accent and modern bold sans */}
+        {/* Headline with thin, refined luxury typography */}
         <div className="animate-[fadeIn_0.8s_ease]">
-          <span className="block font-serif italic font-normal text-2xl sm:text-4xl md:text-5xl text-accent drop-shadow-md tracking-wide">
-            #1 Private Real Estate Advisory
+          <span className="block font-light text-xl sm:text-3xl md:text-4xl text-white/90 tracking-[0.06em] font-modern">
+            #1 real estate site
           </span>
-          <h1 className="mt-1 sm:mt-2 font-modern font-extrabold text-[clamp(2.5rem,6.5vw,4.8rem)] leading-[1.04] tracking-tight text-white drop-shadow-lg">
-            REALTOR<sup className="text-[0.45em] align-super font-sans font-normal">®</sup> agents recommend<span className="text-accent">*</span>
+          <h1 className="mt-2 font-modern font-light text-[clamp(2.5rem,6.5vw,4.8rem)] leading-[1.05] tracking-tight text-white drop-shadow-md">
+            REALTOR<sup className="text-[0.45em] align-super font-normal">®</sup> agents recommend<span className="text-accent">*</span>
           </h1>
         </div>
 
@@ -87,9 +87,9 @@ function Hero() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold tracking-wide transition-all whitespace-nowrap ${
+              className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-light tracking-wide transition-all whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'text-white'
+                  ? 'text-white font-medium'
                   : 'text-white/70 hover:text-white'
               }`}
             >
@@ -117,7 +117,7 @@ function Hero() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Address, neighborhood, city, or ZIP..."
-            className="w-full bg-transparent text-sm sm:text-base text-ink placeholder:text-muted/70 outline-none font-medium"
+            className="w-full bg-transparent text-sm sm:text-base text-ink placeholder:text-muted/70 outline-none font-normal"
           />
 
           {/* Clear button if typed */}
@@ -131,7 +131,7 @@ function Hero() {
             </button>
           )}
 
-          {/* Vibrant High-Contrast Search Action Button (Vibrant Ruby/Crimson from reference) */}
+          {/* Vibrant High-Contrast Search Action Button */}
           <button
             type="submit"
             className="rounded-full bg-[#d9222a] hover:bg-[#bd181f] text-white px-6 sm:px-8 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0"
@@ -145,7 +145,7 @@ function Hero() {
 
         {/* Quick Suggestion Pills */}
         <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2 text-xs">
-          <span className="text-white/60 text-[11px] uppercase tracking-wider font-semibold mr-1">Trending:</span>
+          <span className="text-white/60 text-[11px] uppercase tracking-wider font-medium mr-1">Trending:</span>
           {quickPills.map((pill) => (
             <button
               key={pill}
@@ -156,7 +156,7 @@ function Hero() {
                 params.set('q', pill)
                 navigate(`/listings?${params.toString()}`)
               }}
-              className="rounded-full bg-black/30 hover:bg-white/20 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-medium text-white/90 transition-all hover:scale-105"
+              className="rounded-full bg-black/30 hover:bg-white/20 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-normal text-white/90 transition-all hover:scale-105"
             >
               {pill}
             </button>
@@ -164,7 +164,7 @@ function Hero() {
         </div>
 
         {/* Trust footnote */}
-        <p className="mt-6 text-[11px] text-white/50 tracking-wide font-normal">
+        <p className="mt-6 text-[11px] text-white/50 tracking-wide font-light">
           *Based on proprietary transaction fidelity and independent 2025 national client satisfaction index.
         </p>
       </div>
@@ -246,33 +246,22 @@ function FeatureShowcaseRow() {
 
 /* ------------------------------------------------------------------ *
  * 3. Editorial Story Section ("Crafted with Intention. Designed to Belong.")
+ * Full-Sized Square-Edged Image to the Right
  * ------------------------------------------------------------------ */
 function CraftedWithIntention() {
   return (
-    <section className="bg-white py-16 sm:py-24 lg:py-28 border-y border-stone/70">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-2 items-center">
-          {/* Left Column: Warm Lifestyle Photo Container */}
+    <section className="bg-white border-y border-stone/70 overflow-hidden">
+      <div className="grid lg:grid-cols-2 items-stretch">
+        {/* Left Column: Editorial Narrative */}
+        <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-24 lg:py-28 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
           <Reveal>
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-stone/80 bg-stone/20 shadow-md aspect-[4/3.2] sm:aspect-[4/3]">
-              <img
-                src="/images/showcase/showcase-05.webp"
-                alt="Couple enjoying sunlit residence"
-                className="size-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            </div>
-          </Reveal>
-
-          {/* Right Column: Editorial Narrative */}
-          <Reveal className="lg:pl-6">
             <div className="mb-3">
               <span className="text-xs sm:text-sm font-mono tracking-[0.25em] uppercase text-sea font-semibold">
                 / ABOUT REALTOR LG
               </span>
             </div>
 
-            <h2 className="font-modern font-bold text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.08] text-ink tracking-tight">
+            <h2 className="font-modern font-light text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.08] text-ink tracking-tight">
               Crafted with <span className="font-serif italic font-normal text-sea">Intention.</span>
               <br />
               Designed to <span className="font-serif italic font-normal text-sea">Belong.</span>
@@ -297,6 +286,15 @@ function CraftedWithIntention() {
               </Link>
             </div>
           </Reveal>
+        </div>
+
+        {/* Right Column: Full-Sized Image with No Rounded Edges */}
+        <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-full w-full bg-stone/20">
+          <img
+            src="/images/showcase/showcase-05.webp"
+            alt="Couple enjoying sunlit residence"
+            className="size-full object-cover rounded-none"
+          />
         </div>
       </div>
     </section>
