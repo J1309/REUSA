@@ -1,6 +1,4 @@
-// One-off: /images/**.jpg (originals) -> /public/images/**.webp (served).
-// Re-run after dropping new source photos in /images. `npm run images`
-import { readdir, mkdir } from 'node:fs/promises'
+import { readdir, mkdir, readFile } from 'node:fs/promises'
 import { join, relative, dirname } from 'node:path'
 import sharp from 'sharp'
 
@@ -14,24 +12,32 @@ const walk = async (dir) =>
     ),
   )).flat()
 
-// Source filenames are messy generator output; the site expects clean ones.
 const rename = {
-  'watermark-removed-Elegant_modern_real_estate_building_202608032313.jpg': 'hero/hero-01.webp',
-  'watermark-removed-Modern_coastal_villa_ocean_views_202608032313.jpg': 'hero/hero-02.webp',
-  'watermark-removed-Elementary_school_building_USA_2K_202608040013.jpg': 'lifestyle/lifestyle-school-01.webp',
-  'watermark-removed-Neighborhood_park_with_families_____202608040013.jpg': 'lifestyle/lifestyle-park-01.webp',
-  'watermark-removed-Streetfront_neighborhood_cafe_USA_2K_202608040013.jpg': 'lifestyle/lifestyle-cafe-01.webp',
+  'download (1).jpg': 'showcase/showcase-02.webp',
+  'download (2).jpg': 'showcase/showcase-03.webp',
+  'download (3).jpg': 'showcase/showcase-04.webp',
+  'download (4).jpg': 'showcase/showcase-05.webp',
+  'download (5).jpg': 'showcase/showcase-06.webp',
+  'download (6).jpg': 'showcase/showcase-07.webp',
 }
 
 for (const file of await walk(SRC)) {
   if (!/\.(jpe?g|png)$/i.test(file)) continue
   const base = file.split(/[\\/]/).pop()
-  const out = join(OUT, rename[base] ?? relative(SRC, file).replace(/\.[^.]+$/, '.webp'))
+  
+  let target = rename[base]
+  if (!target) {
+    if (base.startsWith('Discover stunning')) {
+      target = 'showcase/showcase-01.webp'
+    } else {
+      target = relative(SRC, file).replace(/\.[^.]+$/, '.webp')
+    }
+  }
+
+  const out = join(OUT, target)
   await mkdir(dirname(out), { recursive: true })
-  // 1600px covers the widest slot (full-bleed hero) on a 2x display without
-  // going silly; q72 is where these photos stop shrinking without visible loss.
-  // ponytail: single size for every slot — add a srcset pipeline if mobile
-  // data cost ever shows up in the numbers.
-  const info = await sharp(file).resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 72 }).toFile(out)
+  
+  const buf = await readFile(file)
+  const info = await sharp(buf).resize({ width: 1800, withoutEnlargement: true }).webp({ quality: 80 }).toFile(out)
   console.log(`${out}  ${Math.round(info.size / 1024)}KB`)
 }

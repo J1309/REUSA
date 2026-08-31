@@ -2,9 +2,12 @@
 
 @theme {
   --font-display: "Fraunces", Georgia, serif;
+  --font-modern: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 
   --color-ink: #0c1f1c;      /* deep teal-black, headlines + dark sections */
+  --color-moss: #233527;     /* deep olive/moss green from Terris design */
+  --color-forest: #1a2a1e;   /* dark forest hover tone */
   --color-deep: #123331;     /* rich teal */
   --color-sea: #1f5c56;      /* mid teal */
   --color-accent: #7fa88b;   /* muted accent green */

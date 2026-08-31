@@ -18,6 +18,7 @@ export const properties = [
       'A quiet, light-filled estate wrapped around a mature private garden. Full-height glazing folds the living room into the terrace, and the kitchen is built around a single slab island with an aged brass finish. Ten minutes from the coast, and a world away from it.',
     amenities: ['Private Garden', 'Chef Kitchen', 'Heated Pool', 'Wine Cellar', 'Solar Array', 'Two-Car Garage'],
     images: [
+      '/images/showcase/showcase-01.webp',
       '/images/properties/property-001-featured-garden.webp',
       '/images/properties/property-001-featured-living-room.webp',
       '/images/properties/property-001-featured-kitchen.webp',
@@ -38,6 +39,7 @@ export const properties = [
       'Sited along a limestone ridge with uninterrupted hill-country views. Warm oak and blackened steel throughout, a double-height entry, and a primary suite that opens onto its own shaded deck. Built to a 2022 energy spec with whole-home backup.',
     amenities: ['Hill Views', 'Home Office', 'Smart Home', 'Outdoor Kitchen', 'Backup Power', 'Gym'],
     images: [
+      '/images/showcase/showcase-05.webp',
       '/images/properties/property-002-featured-exterior.webp',
       '/images/properties/property-002-featured-interior.webp',
       '/images/properties/property-002-kitchen.webp',
@@ -58,7 +60,12 @@ export const properties = [
     description:
       'Direct Gulf frontage with a forty-foot infinity edge facing due west. Three of the five bedrooms open to water. Deeded beach access and a private dock rated for a 38-foot vessel.',
     amenities: ['Ocean Front', 'Infinity Pool', 'Private Dock', 'Spa', 'Guest House', 'Elevator'],
-    images: ['/images/hero/hero-02.webp', '/images/properties/property-001-featured-living-room.webp'],
+    images: [
+      '/images/showcase/showcase-02.webp',
+      '/images/showcase/showcase-03.webp',
+      '/images/showcase/showcase-06.webp',
+      '/images/properties/property-001-featured-living-room.webp',
+    ],
   },
   {
     id: '004',
@@ -74,7 +81,11 @@ export const properties = [
     description:
       'A restored downtown townhouse two blocks from the historic district. Original heart-pine floors, a rebuilt rear courtyard, and a top-floor study with harbor glimpses.',
     amenities: ['Courtyard', 'Historic District', 'Fireplace', 'Roof Deck', 'Walkable'],
-    images: ['/images/hero/hero-01.webp', '/images/properties/property-002-featured-interior.webp'],
+    images: [
+      '/images/showcase/showcase-04.webp',
+      '/images/showcase/showcase-01.webp',
+      '/images/properties/property-002-featured-interior.webp',
+    ],
   },
   {
     id: '005',
@@ -90,7 +101,11 @@ export const properties = [
     description:
       'Directly across from a twelve-acre park, in one of the strongest elementary catchments in the city. Open plan main floor, finished basement, and a west-facing yard that gets sun until eight in July.',
     amenities: ['Park Facing', 'Top Schools', 'Finished Basement', 'Fenced Yard', 'EV Charger'],
-    images: ['/images/lifestyle/lifestyle-park-01.webp', '/images/lifestyle/lifestyle-school-01.webp'],
+    images: [
+      '/images/showcase/showcase-07.webp',
+      '/images/showcase/showcase-05.webp',
+      '/images/properties/property-001-featured-garden.webp',
+    ],
   },
   {
     id: '006',
@@ -106,7 +121,11 @@ export const properties = [
     description:
       'A corner unit on the fifth floor with windows on two sides and a cafe at street level. Concrete ceilings, a compact but serious kitchen, and deeded parking.',
     amenities: ['Corner Unit', 'City Views', 'Concierge', 'Deeded Parking', 'Pet Friendly'],
-    images: ['/images/lifestyle/lifestyle-cafe-01.webp', '/images/properties/property-002-kitchen.webp'],
+    images: [
+      '/images/showcase/showcase-03.webp',
+      '/images/showcase/showcase-06.webp',
+      '/images/properties/property-002-kitchen.webp',
+    ],
   },
 ]
 

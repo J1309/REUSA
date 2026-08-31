@@ -235,12 +235,13 @@ export function Stars({ n = 5 }) {
   )
 }
 
-/* Shared button styles — one place, two variants. */
 export const btn =
-  'inline-flex items-center justify-center gap-2 rounded-full px-7 min-h-11 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.03] active:scale-100'
-export const btnPrimary = `${btn} bg-ink text-sand hover:bg-sea`
+  'inline-flex items-center justify-center gap-2 rounded-full px-6 sm:px-7 min-h-11 text-sm font-medium tracking-wide transition-all duration-300 hover:scale-[1.02] active:scale-100'
+export const btnPrimary = `${btn} bg-moss text-white hover:bg-forest shadow-sm`
+export const btnMoss = `${btn} bg-moss text-white hover:bg-forest shadow-sm`
+export const btnWhite = `${btn} bg-white text-ink hover:bg-sand shadow-sm`
 export const btnLight = `${btn} bg-sand text-ink hover:bg-accent shadow-md`
-export const btnGhost = `${btn} border border-current/30 text-current hover:bg-current/10`
+export const btnGhost = `${btn} border border-current/25 text-current hover:bg-current/10`
 
 /* ScrollProgress — fixed bar driven by Lenis/native scroll. */
 export function ScrollProgress() {
@@ -266,9 +267,9 @@ export function ScrollProgress() {
 }
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/listings', label: 'Listings' },
-  { to: '/about', label: 'About' },
+  { to: '/', label: 'Overview' },
+  { to: '/listings', label: 'Residences' },
+  { to: '/about', label: 'Philosophy & Team' },
 ]
 
 export function Nav() {
@@ -276,7 +277,6 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   // Home has a dark full-bleed hero; other pages start on the light background.
-  // When mobile menu is open, always use the light background palette.
   const overHero = pathname === '/' && !scrolled && !open
 
   useEffect(() => {
@@ -291,50 +291,67 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
-        scrolled || open ? 'bg-sand/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]' : 'bg-transparent'
+        scrolled || open ? 'bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]' : 'bg-transparent'
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4 lg:px-10">
+        {/* Brand Logo */}
         <Link
           to="/"
-          className={`flex min-h-11 items-center font-display text-xl tracking-tight transition-colors ${overHero ? 'text-sand' : 'text-ink'}`}
+          className={`flex items-center gap-2.5 font-bold tracking-tight text-lg sm:text-xl transition-colors ${
+            overHero ? 'text-white' : 'text-ink'
+          }`}
         >
-          Realtor LG<span className="text-accent">.</span>
+          <span className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white text-ink shadow-sm">
+            <svg className="size-4 sm:size-4.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
+            </svg>
+          </span>
+          <span className="font-modern font-bold tracking-tight">Realtor LG</span>
         </Link>
 
-        <div className={`hidden items-center gap-9 md:flex ${overHero ? 'text-sand' : 'text-ink'}`}>
+        {/* Center Desktop Links */}
+        <div className={`hidden items-center gap-8 md:flex ${overHero ? 'text-white/90' : 'text-ink/80'}`}>
           {links.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `group relative text-sm tracking-wide transition-opacity hover:opacity-100 ${
-                  isActive ? 'opacity-100' : 'opacity-70'
+                `text-xs uppercase tracking-[0.15em] font-medium transition-opacity hover:opacity-100 ${
+                  isActive ? 'opacity-100 font-semibold' : 'opacity-70'
                 }`
               }
             >
               {({ isActive }) => (
-                <>
+                <span className="relative py-1">
                   {l.label}
-                  <span
-                    className={`absolute -bottom-1 left-0 h-px bg-current transition-all duration-300 ${
-                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
-                </>
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-current rounded-full" />
+                  )}
+                </span>
               )}
             </NavLink>
           ))}
-          <a href="#contact" className={overHero ? btnGhost : btnPrimary}>
-            Book a call
-          </a>
         </div>
 
+        {/* Right CTA Button */}
+        <div className="hidden sm:flex items-center gap-3">
+          <Link
+            to="/listings"
+            className={`${btnMoss} min-h-10 px-5 text-xs font-semibold uppercase tracking-wider shadow-sm`}
+          >
+            Explore Residences
+          </Link>
+        </div>
+
+        {/* Mobile Hamburger */}
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
-          className={`grid size-11 place-items-center md:hidden rounded-full transition-colors ${overHero ? 'text-sand hover:bg-sand/10' : 'text-ink hover:bg-stone/40'}`}
+          className={`grid size-11 place-items-center md:hidden rounded-full transition-colors ${
+            overHero ? 'text-white hover:bg-white/10' : 'text-ink hover:bg-stone/40'
+          }`}
         >
           <span className="relative block h-3 w-6">
             <span
@@ -347,40 +364,44 @@ export function Nav() {
         </button>
       </nav>
 
+      {/* Mobile Drawer */}
       {open && (
-        <div className="border-t border-stone/80 bg-sand/98 px-6 pb-8 pt-2 md:hidden shadow-xl animate-[fadeIn_0.2s_ease]">
+        <div className="border-t border-stone/80 bg-white/98 px-6 pb-8 pt-4 md:hidden shadow-2xl animate-[fadeIn_0.2s_ease]">
           <div className="flex flex-col divide-y divide-stone/50">
             {links.map((l) => (
               <NavLink
                 key={l.to}
                 to={l.to}
                 className={({ isActive }) =>
-                  `flex min-h-14 items-center justify-between font-display text-2xl transition-colors ${
-                    isActive ? 'text-sea font-semibold' : 'text-ink'
+                  `flex min-h-14 items-center justify-between font-modern text-lg font-medium transition-colors ${
+                    isActive ? 'text-moss font-semibold' : 'text-ink'
                   }`
                 }
               >
                 <span>{l.label}</span>
-                <span className="text-sm font-sans text-muted">→</span>
+                <span className="text-sm text-muted">→</span>
               </NavLink>
             ))}
           </div>
-          <a href="#contact" onClick={() => setOpen(false)} className={`${btnPrimary} mt-6 w-full min-h-12 shadow-md`}>
-            Book a consultation
-          </a>
+          <Link
+            to="/listings"
+            onClick={() => setOpen(false)}
+            className={`${btnMoss} mt-6 w-full min-h-12 text-sm font-semibold uppercase tracking-wider shadow-md`}
+          >
+            Explore Residences
+          </Link>
         </div>
       )}
     </header>
   )
 }
 
-/* PropertyCard — used on Home, Listings and the "similar homes" rail. */
 export function PropertyCard({ p, priority = false, layout = 'grid' }) {
   const row = layout === 'row'
   return (
     <Link
       to={`/listings/${p.id}`}
-      className={`group block overflow-hidden rounded-2xl bg-white transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(12,31,28,0.35)] ${
+      className={`group block overflow-hidden rounded-[2rem] border border-stone/80 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl ${
         row ? 'sm:flex' : ''
       }`}
     >
@@ -389,17 +410,17 @@ export function PropertyCard({ p, priority = false, layout = 'grid' }) {
           src={p.images[0]}
           alt={p.title}
           priority={priority}
-          wrapClass={row ? 'aspect-[4/3] sm:h-full' : 'aspect-[4/3]'}
+          wrapClass={row ? 'aspect-[4/3] sm:h-full' : 'aspect-[16/11]'}
           className="size-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
         />
-        <span className="absolute left-4 top-4 rounded-full bg-sand/90 px-3 py-1 text-xs tracking-wide backdrop-blur">
+        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold tracking-wide text-ink backdrop-blur-md shadow-sm">
           {p.type}
         </span>
-        {/* Amenities slide up on hover (desktop only — no hover on touch). */}
+        {/* Amenities slide up on hover */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-full bg-gradient-to-t from-ink/90 to-transparent p-4 pt-10 transition-transform duration-500 group-hover:translate-y-0 md:block">
           <div className="flex flex-wrap gap-1.5">
             {p.amenities.slice(0, 3).map((a) => (
-              <span key={a} className="rounded-full border border-sand/30 px-2.5 py-1 text-[11px] text-sand">
+              <span key={a} className="rounded-full border border-white/30 px-2.5 py-1 text-[11px] text-white">
                 {a}
               </span>
             ))}
@@ -408,18 +429,27 @@ export function PropertyCard({ p, priority = false, layout = 'grid' }) {
       </div>
 
       <div className={`p-6 ${row ? 'sm:flex sm:flex-col sm:justify-center' : ''}`}>
-        <p className="font-display text-2xl">{usd(p.price)}</p>
-        <h3 className="mt-1 text-base font-medium">{p.title}</h3>
-        <p className="mt-0.5 text-sm text-muted">{p.location}</p>
-        <div className="mt-4 flex gap-5 border-t border-stone pt-4 text-sm text-muted">
-          <span>{p.beds} bd</span>
-          <span>{p.baths} ba</span>
+        <div className="flex items-baseline justify-between">
+          <p className="font-modern font-bold text-2xl text-ink">{usd(p.price)}</p>
+          <span className="text-xs font-mono text-muted uppercase tracking-wider">{p.type}</span>
+        </div>
+        <h3 className="mt-1 font-modern text-lg font-semibold text-ink truncate">{p.title}</h3>
+        <p className="mt-0.5 text-xs text-muted truncate">{p.location}</p>
+        <div className="mt-4 flex gap-4 border-t border-stone/60 pt-4 text-xs font-medium text-muted">
+          <span>{p.beds} Beds</span>
+          <span>•</span>
+          <span>{p.baths} Baths</span>
+          <span>•</span>
           <span>{p.sqft.toLocaleString('en-US')} sqft</span>
         </div>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-sea">
-          View details
-          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-        </span>
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-xs font-semibold uppercase tracking-wider text-moss group-hover:text-sea transition-colors">
+            View Details
+          </span>
+          <span className="flex size-7 items-center justify-center rounded-full bg-sand text-ink transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-moss group-hover:text-white">
+            →
+          </span>
+        </div>
       </div>
     </Link>
   )
