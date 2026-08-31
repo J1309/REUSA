@@ -57,11 +57,11 @@ function Hero() {
 
   return (
     <section className="relative min-h-[92svh] sm:min-h-[96svh] overflow-hidden bg-ink pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-36 flex items-center justify-center">
-      {/* 16:9 High-Resolution Dusk Architectural Background (Untinted & Crisp) */}
+      {/* High-Resolution Architectural Background (Untinted & Crisp) */}
       <div ref={bg} className="absolute inset-0 -bottom-[16%] pointer-events-none">
         <img
-          src="/images/hero/hero-dusk-estate.webp"
-          alt="Luxury modern architectural residence at dusk"
+          src="/images/hero/hero-custom.webp"
+          alt="Luxury modern architectural residence"
           fetchPriority="high"
           className="size-full object-cover object-center scale-105 transition-transform duration-[2s]"
         />
