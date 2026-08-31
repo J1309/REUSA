@@ -73,11 +73,11 @@ function Hero() {
       <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
         {/* Headline with thin, refined luxury typography */}
         <div className="animate-[fadeIn_0.8s_ease]">
-          <span className="block font-light text-xl sm:text-3xl md:text-4xl text-white/90 tracking-[0.06em] font-modern">
-            #1 real estate site
+          <span className="block font-serif italic font-light text-2xl sm:text-4xl md:text-5xl text-accent drop-shadow-md tracking-wide">
+            Your Sanctuary. Your Legacy.
           </span>
           <h1 className="mt-2 font-modern font-light text-[clamp(2.5rem,6.5vw,4.8rem)] leading-[1.05] tracking-tight text-white drop-shadow-md">
-            REALTOR<sup className="text-[0.45em] align-super font-normal">®</sup> agents recommend<span className="text-accent">*</span>
+            Your Property. Your Brand. Your Story.
           </h1>
         </div>
 
@@ -251,9 +251,9 @@ function FeatureShowcaseRow() {
 function CraftedWithIntention() {
   return (
     <section className="bg-white border-y border-stone/70 overflow-hidden">
-      <div className="grid lg:grid-cols-2 items-stretch">
+      <div className="grid lg:grid-cols-2 items-center">
         {/* Left Column: Editorial Narrative */}
-        <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-16 sm:py-24 lg:py-28 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
+        <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-14 sm:py-20 lg:py-24 max-w-2xl lg:max-w-none mx-auto lg:mx-0">
           <Reveal>
             <div className="mb-3">
               <span className="text-xs sm:text-sm font-mono tracking-[0.25em] uppercase text-sea font-semibold">
@@ -288,8 +288,8 @@ function CraftedWithIntention() {
           </Reveal>
         </div>
 
-        {/* Right Column: Full-Sized Image with No Rounded Edges */}
-        <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-full w-full bg-stone/20">
+        {/* Right Column: Square-Edged Image with Controlled Height */}
+        <div className="relative h-[320px] sm:h-[400px] lg:h-[480px] w-full bg-stone/20 overflow-hidden">
           <img
             src="/images/showcase/showcase-05.webp"
             alt="Couple enjoying sunlit residence"
