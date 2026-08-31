@@ -9,121 +9,164 @@ import { Img, Reveal, Counter, Stars, PropertyCard, btnPrimary, btnMoss, btnWhit
 gsap.registerPlugin(ScrollTrigger)
 
 /* ------------------------------------------------------------------ *
- * 1. Hero Section (Inspired by Terris Reference)
+ * 1. Centered Dusk Estate Hero Section (Inspired by Reference Design)
  * ------------------------------------------------------------------ */
+const heroTabs = [
+  { id: 'buy', label: 'Buy' },
+  { id: 'rent', label: 'Rent' },
+  { id: 'sell', label: 'Sell' },
+  { id: 'private', label: 'Private Treaty' },
+  { id: 'sold', label: 'Just Sold' },
+  { id: 'value', label: 'Home Value' },
+]
+
 function Hero() {
+  const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState('buy')
+  const [query, setQuery] = useState('')
   const bg = useRef(null)
-  const copy = useRef(null)
+  const content = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Subtle smooth parallax drift
+      // Gentle cinematic parallax on scroll
       gsap.to(bg.current, {
-        yPercent: 12,
+        yPercent: 14,
         ease: 'none',
         scrollTrigger: { trigger: bg.current, start: 'top top', end: 'bottom top', scrub: true },
       })
-      gsap.to(copy.current, {
+      gsap.to(content.current, {
         opacity: 0,
-        y: -30,
+        y: -35,
         ease: 'none',
-        scrollTrigger: { trigger: bg.current, start: 'top top', end: '55% top', scrub: true },
+        scrollTrigger: { trigger: bg.current, start: 'top top', end: '60% top', scrub: true },
       })
     })
     return () => ctx.revert()
   }, [])
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+    const params = new URLSearchParams()
+    if (query.trim()) params.set('q', query.trim())
+    if (activeTab === 'rent') params.set('type', 'Condo')
+    navigate(`/listings?${params.toString()}`)
+  }
+
+  const quickPills = ['Montecito, CA', 'Austin, TX', 'Naples, FL', '4+ Beds', 'Waterfront', 'Under $3M']
+
   return (
-    <section className="relative min-h-[96svh] overflow-hidden bg-ink pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-40 lg:pb-32 flex items-center">
-      {/* Background Photography with Terris-style architectural vertical greenery */}
-      <div ref={bg} className="absolute inset-0 -bottom-[14%] pointer-events-none">
+    <section className="relative min-h-[92svh] sm:min-h-[96svh] overflow-hidden bg-ink pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-36 flex items-center justify-center">
+      {/* 16:9 High-Resolution Dusk Architectural Background */}
+      <div ref={bg} className="absolute inset-0 -bottom-[16%] pointer-events-none">
         <img
-          src="/images/showcase/showcase-02.webp"
-          alt="Architectural green tower residence"
+          src="/images/hero/hero-dusk-estate.webp"
+          alt="Luxury modern architectural residence at dusk"
           fetchPriority="high"
-          className="size-full object-cover object-top scale-105 transition-transform duration-[2.5s]"
+          className="size-full object-cover object-center scale-105 transition-transform duration-[2s]"
         />
-        {/* Rich Atmospheric Scrim Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/50 to-transparent" />
+        {/* Layered Twilight & Contrast Scrims */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-black/50" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
-      <div ref={copy} className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 w-full">
-        <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr] items-end">
-          {/* Left Column: Terris-style Headline & Dual CTAs */}
-          <div className="max-w-2xl text-white">
-            {/* Slash Eyebrow */}
-            <div className="mb-4 sm:mb-6 flex items-center gap-2">
-              <span className="text-xs sm:text-sm font-mono tracking-[0.25em] uppercase text-white/70">
-                / WELCOME TO REALTOR LG
-              </span>
-            </div>
-
-            {/* Giant Clean Modern Headline */}
-            <h1 className="font-modern font-bold text-[clamp(2.8rem,6.8vw,5.4rem)] leading-[1.02] tracking-tight text-white">
-              Your Property.
-              <br />
-              Your Brand. Your Story.
-            </h1>
-
-            {/* Refined Subtitle */}
-            <p className="mt-6 text-base sm:text-lg leading-relaxed text-white/80 max-w-xl font-normal">
-              Welcome to Realtor LG—modern architectural residences crafted for comfort, style, and effortless luxury living.
-            </p>
-
-            {/* Dual Button Group (Terris Deep Olive Pill + Solid White Pill) */}
-            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3.5">
-              <Link
-                to="/listings"
-                className={`${btnMoss} px-7 min-h-12 text-sm font-semibold tracking-wide shadow-xl hover:shadow-moss/30`}
-              >
-                Explore Residences
-              </Link>
-              <a
-                href="#consultation"
-                className={`${btnWhite} px-7 min-h-12 text-sm font-semibold tracking-wide shadow-xl`}
-              >
-                Schedule a Tour
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: Floating Micro-Showcase Card with Intimate Media Frame */}
-          <div className="hidden lg:block">
-            <div className="rounded-[2.2rem] border border-white/20 bg-ink/80 p-5 backdrop-blur-xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.8)] text-white max-w-md ml-auto">
-              <p className="text-xs leading-relaxed text-white/80 font-normal px-2 pt-1 pb-4">
-                A boutique brokerage built for modern intentional living—elevated, intimate, and timeless.
-              </p>
-
-              {/* Inner Media Frame with cozy suite photo + play overlay badge */}
-              <Link
-                to="/listings/001"
-                className="group relative block aspect-[16/11] overflow-hidden rounded-2xl border border-white/10 bg-white/5"
-              >
-                <img
-                  src="/images/showcase/showcase-06.webp"
-                  alt="Curated interior suite"
-                  className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                {/* Central Frosted Play/Explore Badge */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex size-12 items-center justify-center rounded-full bg-white/30 backdrop-blur-md border border-white/40 text-white shadow-lg transition-transform duration-300 group-hover:scale-110">
-                    <svg className="size-5 fill-current ml-0.5" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                </div>
-
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs text-white/90">
-                  <span className="font-medium">The Garden House Suite</span>
-                  <span className="text-accent font-mono">$2,450,000</span>
-                </div>
-              </Link>
-            </div>
-          </div>
+      <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
+        {/* Headline matching the high-trust reference style */}
+        <div className="animate-[fadeIn_0.8s_ease]">
+          <span className="block font-modern font-bold text-2xl sm:text-4xl md:text-5xl text-white/95 tracking-tight drop-shadow-md">
+            #1 real estate site
+          </span>
+          <h1 className="mt-1 sm:mt-2 font-modern font-extrabold text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.05] tracking-tight text-white drop-shadow-lg">
+            REALTOR<sup className="text-[0.45em] align-super">®</sup> agents recommend<span className="text-accent">*</span>
+          </h1>
         </div>
+
+        {/* Interactive Filter Category Tabs */}
+        <div className="mt-8 sm:mt-10 flex items-center justify-center gap-1.5 sm:gap-4 overflow-x-auto pb-1 max-w-full scrollbar-none">
+          {heroTabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold tracking-wide transition-all whitespace-nowrap ${
+                activeTab === tab.id
+                  ? 'text-white'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              {tab.label}
+              {activeTab === tab.id && (
+                <span className="absolute bottom-0 inset-x-2 h-0.5 bg-white rounded-full transition-all" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Expansive Search Bar Pill Console */}
+        <form
+          onSubmit={handleSearch}
+          className="mt-4 sm:mt-5 mx-auto max-w-3xl rounded-full bg-white/95 p-1.5 sm:p-2 pl-5 sm:pl-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] backdrop-blur-xl border border-white/80 flex items-center gap-3 transition-all focus-within:ring-4 focus-within:ring-white/30"
+        >
+          {/* Location Icon */}
+          <svg className="size-5 text-muted shrink-0 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+
+          {/* Search Input */}
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Address, neighborhood, city, or ZIP..."
+            className="w-full bg-transparent text-sm sm:text-base text-ink placeholder:text-muted/70 outline-none font-medium"
+          />
+
+          {/* Clear button if typed */}
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery('')}
+              className="text-xs text-muted hover:text-ink px-1"
+            >
+              ✕
+            </button>
+          )}
+
+          {/* Vibrant High-Contrast Search Action Button (Vibrant Ruby/Crimson from reference) */}
+          <button
+            type="submit"
+            className="rounded-full bg-[#d9222a] hover:bg-[#bd181f] text-white px-6 sm:px-8 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0"
+          >
+            <span>Search</span>
+            <svg className="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+
+        {/* Quick Suggestion Pills */}
+        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2 text-xs">
+          <span className="text-white/60 text-[11px] uppercase tracking-wider font-semibold mr-1">Trending:</span>
+          {quickPills.map((pill) => (
+            <button
+              key={pill}
+              type="button"
+              onClick={() => {
+                setQuery(pill)
+                const params = new URLSearchParams()
+                params.set('q', pill)
+                navigate(`/listings?${params.toString()}`)
+              }}
+              className="rounded-full bg-black/30 hover:bg-white/20 backdrop-blur-md border border-white/15 px-3 py-1 text-[11px] font-medium text-white/90 transition-all hover:scale-105"
+            >
+              {pill}
+            </button>
+          ))}
+        </div>
+
+        {/* Trust footnote */}
+        <p className="mt-6 text-[11px] text-white/50 tracking-wide font-normal">
+          *Based on proprietary transaction fidelity and independent 2025 national client satisfaction index.
+        </p>
       </div>
     </section>
   )
@@ -161,7 +204,7 @@ function FeatureShowcaseRow() {
     <section className="bg-sand py-12 sm:py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {showcaseCards.map((card, i) => (
+          {showcaseCards.map((card) => (
             <Link
               key={card.title}
               to={card.link}
@@ -221,7 +264,7 @@ function CraftedWithIntention() {
             </div>
           </Reveal>
 
-          {/* Right Column: Editorial Narrative matching Terris */}
+          {/* Right Column: Editorial Narrative */}
           <Reveal className="lg:pl-6">
             <div className="mb-3">
               <span className="text-xs sm:text-sm font-mono tracking-[0.25em] uppercase text-sea font-semibold">
@@ -261,95 +304,7 @@ function CraftedWithIntention() {
 }
 
 /* ------------------------------------------------------------------ *
- * 4. Search & Filter Bar Console
- * ------------------------------------------------------------------ */
-function SearchBar() {
-  const navigate = useNavigate()
-  const propertyTypes = useListingTypes()
-  const submit = (e) => {
-    e.preventDefault()
-    const f = new FormData(e.currentTarget)
-    const params = new URLSearchParams()
-    for (const [k, v] of f.entries()) if (v && v !== 'All' && v !== 'Any') params.set(k, v)
-    navigate(`/listings?${params}`)
-  }
-
-  return (
-    <div className="relative z-20 mx-auto max-w-6xl px-4 sm:px-6 lg:px-10 py-8">
-      <Reveal>
-        <form
-          onSubmit={submit}
-          className="grid gap-3 rounded-3xl border border-stone/80 bg-white p-4 sm:p-5 shadow-[0_20px_50px_-20px_rgba(12,31,28,0.15)] sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_auto]"
-        >
-          {/* Location input */}
-          <div className="flex items-center gap-3 rounded-2xl bg-sand/40 px-4 py-3 border border-stone/60 focus-within:bg-white focus-within:border-sea transition-all">
-            <svg className="size-5 text-sea shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <div className="flex-1 min-w-0">
-              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">Location</span>
-              <input
-                name="q"
-                placeholder="Montecito, Austin, Naples..."
-                className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted/60 font-medium"
-              />
-            </div>
-          </div>
-
-          {/* Property Type */}
-          <div className="flex items-center gap-3 rounded-2xl bg-sand/40 px-4 py-3 border border-stone/60 focus-within:bg-white focus-within:border-sea transition-all">
-            <svg className="size-5 text-sea shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-            <div className="flex-1 min-w-0">
-              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">Property Type</span>
-              <select
-                name="type"
-                className="w-full bg-transparent text-sm text-ink outline-none cursor-pointer font-medium"
-              >
-                {propertyTypes.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Max Price */}
-          <div className="flex items-center gap-3 rounded-2xl bg-sand/40 px-4 py-3 border border-stone/60 focus-within:bg-white focus-within:border-sea transition-all">
-            <svg className="size-5 text-sea shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div className="flex-1 min-w-0">
-              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">Price Cap</span>
-              <select
-                name="max"
-                className="w-full bg-transparent text-sm text-ink outline-none cursor-pointer font-medium"
-              >
-                <option value="Any">No Limit</option>
-                <option value="1000000">Under $1,000,000</option>
-                <option value="2000000">Under $2,000,000</option>
-                <option value="3000000">Under $3,000,000</option>
-                <option value="5000000">Under $5,000,000</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <button className={`${btnMoss} min-h-12 rounded-2xl shadow-md hover:shadow-lg flex items-center justify-center gap-2 w-full text-sm font-semibold tracking-wider uppercase`}>
-            <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            Search
-          </button>
-        </form>
-      </Reveal>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ *
- * 5. Featured Portfolio Showcase
+ * 4. Featured Portfolio Showcase
  * ------------------------------------------------------------------ */
 function Featured() {
   const list = useListings()
@@ -386,7 +341,7 @@ function Featured() {
 }
 
 /* ------------------------------------------------------------------ *
- * 6. Standards & Proven Statistics
+ * 5. Standards & Proven Statistics
  * ------------------------------------------------------------------ */
 function WhyUs() {
   return (
@@ -416,7 +371,7 @@ function WhyUs() {
 }
 
 /* ------------------------------------------------------------------ *
- * 7. Testimonials
+ * 6. Testimonials
  * ------------------------------------------------------------------ */
 function Testimonials() {
   const [i, setI] = useState(0)
@@ -458,7 +413,7 @@ function Testimonials() {
 }
 
 /* ------------------------------------------------------------------ *
- * 8. Private Consultation CTA
+ * 7. Private Consultation CTA
  * ------------------------------------------------------------------ */
 function CTA() {
   return (
@@ -490,7 +445,6 @@ export default function Home() {
       <Hero />
       <FeatureShowcaseRow />
       <CraftedWithIntention />
-      <SearchBar />
       <Featured />
       <WhyUs />
       <Testimonials />
