@@ -57,7 +57,7 @@ function Hero() {
 
   return (
     <section className="relative min-h-[92svh] sm:min-h-[96svh] overflow-hidden bg-ink pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-36 flex items-center justify-center">
-      {/* 16:9 High-Resolution Dusk Architectural Background */}
+      {/* 16:9 High-Resolution Dusk Architectural Background (Untinted & Crisp) */}
       <div ref={bg} className="absolute inset-0 -bottom-[16%] pointer-events-none">
         <img
           src="/images/hero/hero-dusk-estate.webp"
@@ -65,9 +65,6 @@ function Hero() {
           fetchPriority="high"
           className="size-full object-cover object-center scale-105 transition-transform duration-[2s]"
         />
-        {/* Layered Twilight & Contrast Scrims */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-black/50" />
-        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
