@@ -71,13 +71,13 @@ function Hero() {
       </div>
 
       <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
-        {/* Headline matching the high-trust reference style */}
+        {/* Headline with premium serif accent and modern bold sans */}
         <div className="animate-[fadeIn_0.8s_ease]">
-          <span className="block font-modern font-bold text-2xl sm:text-4xl md:text-5xl text-white/95 tracking-tight drop-shadow-md">
-            #1 real estate site
+          <span className="block font-serif italic font-normal text-2xl sm:text-4xl md:text-5xl text-accent drop-shadow-md tracking-wide">
+            #1 Private Real Estate Advisory
           </span>
-          <h1 className="mt-1 sm:mt-2 font-modern font-extrabold text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.05] tracking-tight text-white drop-shadow-lg">
-            REALTOR<sup className="text-[0.45em] align-super">®</sup> agents recommend<span className="text-accent">*</span>
+          <h1 className="mt-1 sm:mt-2 font-modern font-extrabold text-[clamp(2.5rem,6.5vw,4.8rem)] leading-[1.04] tracking-tight text-white drop-shadow-lg">
+            REALTOR<sup className="text-[0.45em] align-super font-sans font-normal">®</sup> agents recommend<span className="text-accent">*</span>
           </h1>
         </div>
 
@@ -273,9 +273,9 @@ function CraftedWithIntention() {
             </div>
 
             <h2 className="font-modern font-bold text-[clamp(2.2rem,4.5vw,3.6rem)] leading-[1.08] text-ink tracking-tight">
-              Crafted with Intention.
+              Crafted with <span className="font-serif italic font-normal text-sea">Intention.</span>
               <br />
-              Designed to Belong.
+              Designed to <span className="font-serif italic font-normal text-sea">Belong.</span>
             </h2>
 
             <p className="mt-6 text-base sm:text-lg leading-relaxed text-muted font-normal">
@@ -350,7 +350,7 @@ function WhyUs() {
         <Reveal className="max-w-2xl">
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-accent font-semibold">/ BROKERAGE STANDARD</span>
           <h2 className="mt-2 font-modern font-bold text-[clamp(2rem,4vw,3.2rem)] leading-tight">
-            Eighteen years, one market at a time.
+            Eighteen years, <span className="font-serif italic font-normal text-accent">one market at a time.</span>
           </h2>
           <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/70">
             We don't run automated high-volume pipelines. Every client works directly with a licensed principal, from initial advisory to the wire confirmation.
@@ -385,11 +385,11 @@ function Testimonials() {
     <section className="bg-deep text-white py-20 sm:py-28">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center lg:px-10">
         <Stars n={t.stars} />
-        <blockquote key={i} className="mt-8 animate-[fadeIn_0.8s_ease] font-display text-[clamp(1.5rem,3.2vw,2.4rem)] leading-snug">
+        <blockquote key={i} className="mt-8 animate-[fadeIn_0.8s_ease] font-serif italic text-[clamp(1.6rem,3.4vw,2.6rem)] leading-snug text-sand">
           “{t.quote}”
         </blockquote>
         <p className="mt-8 text-xs sm:text-sm text-white/60">
-          <strong className="text-white">{t.name}</strong> — {t.place}
+          <strong className="text-white font-modern font-semibold">{t.name}</strong> — {t.place}
         </p>
         <div className="mt-8 flex justify-center gap-2">
           {testimonials.map((_, n) => (
@@ -421,7 +421,7 @@ function CTA() {
       <Reveal className="overflow-hidden rounded-[2.5rem] bg-white p-8 sm:p-14 text-center shadow-[0_30px_70px_-30px_rgba(12,31,28,0.2)] border border-stone/80 md:p-20">
         <span className="text-xs font-mono uppercase tracking-[0.25em] text-sea font-semibold">/ PRIVATE ADVISORY</span>
         <h2 className="mx-auto mt-2 max-w-2xl font-modern font-bold text-[clamp(2rem,4.5vw,3.4rem)] leading-tight text-ink">
-          Tell us what you're looking for.
+          Tell us what you're <span className="font-serif italic font-normal text-sea">looking for.</span>
         </h2>
         <p className="mx-auto mt-5 max-w-md text-sm sm:text-base text-muted leading-relaxed">
           No automated newsletters, no junior handoffs. One discreet consultation with a principal broker, usually the same day.

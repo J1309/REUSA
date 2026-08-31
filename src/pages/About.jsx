@@ -48,20 +48,20 @@ function Story() {
 export default function About() {
   return (
     <>
-      <header className="mx-auto max-w-7xl px-6 pb-16 pt-28 sm:pt-32 lg:pt-36 lg:px-10">
-        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-muted">About</p>
-        <h1 className="max-w-3xl font-display text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.02]">
-          Six agents who'd rather lose a listing than oversell one.
+      <header className="mx-auto max-w-7xl px-4 sm:px-6 pb-12 pt-24 sm:pt-32 lg:pt-36 lg:px-10">
+        <p className="mb-2 text-xs font-mono uppercase tracking-[0.25em] text-sea font-semibold">/ PHILOSOPHY & HERITAGE</p>
+        <h1 className="max-w-3xl font-modern font-bold text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.02] text-ink">
+          Six principals who'd rather lose a listing than <span className="font-serif italic font-normal text-sea">oversell one.</span>
         </h1>
       </header>
 
-      <section className="mx-auto max-w-7xl px-6 lg:px-10">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <Reveal>
           <Img
-            src="/images/hero/hero-01.webp"
-            alt="Realtor LG office"
+            src="/images/showcase/showcase-01.webp"
+            alt="Realtor LG architectural office"
             priority
-            wrapClass="aspect-[16/9] rounded-3xl md:aspect-[21/9]"
+            wrapClass="aspect-[16/9] rounded-3xl md:aspect-[21/9] overflow-hidden shadow-lg border border-stone/80"
             className="size-full object-cover"
           />
         </Reveal>

@@ -48,9 +48,9 @@ export default function Listings() {
   return (
     <>
       <header className="mx-auto max-w-7xl px-4 sm:px-6 pb-8 pt-24 sm:pb-12 sm:pt-32 lg:pt-36 lg:px-10">
-        <p className="mb-2 text-xs uppercase tracking-[0.3em] text-sea font-semibold">Active Portfolio</p>
-        <h1 className="max-w-2xl font-display text-[clamp(2.2rem,5.5vw,4rem)] leading-[1.05] text-ink">
-          Every residence we represent.
+        <p className="mb-2 text-xs font-mono uppercase tracking-[0.25em] text-sea font-semibold">/ ACTIVE PORTFOLIO</p>
+        <h1 className="max-w-2xl font-modern font-bold text-[clamp(2.2rem,5.5vw,4rem)] leading-[1.05] text-ink">
+          Every residence we <span className="font-serif italic font-normal text-sea">represent.</span>
         </h1>
       </header>
 

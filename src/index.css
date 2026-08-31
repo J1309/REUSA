@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Fraunces", Georgia, serif;
+  --font-serif: "Instrument Serif", "Cormorant Garamond", "Fraunces", Georgia, serif;
+  --font-editorial: "Cormorant Garamond", "Fraunces", Georgia, serif;
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
   --font-modern: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 

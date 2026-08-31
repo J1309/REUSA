@@ -474,9 +474,9 @@ export default function Property() {
             <div>
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-sea">Prime Residence</span>
-                  <h1 className="mt-1 font-display text-2xl sm:text-4xl text-ink leading-tight">{p.title}</h1>
-                  <p className="mt-1 text-xs sm:text-sm text-muted flex items-center gap-1.5">
+                  <span className="text-[10px] sm:text-[11px] font-mono font-semibold uppercase tracking-[0.25em] text-sea">/ PRIME RESIDENCE</span>
+                  <h1 className="mt-1 font-modern font-bold text-2xl sm:text-4xl text-ink leading-tight">{p.title}</h1>
+                  <p className="mt-1 text-xs sm:text-sm text-muted flex items-center gap-1.5 font-medium">
                     <svg className="size-4 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -501,8 +501,8 @@ export default function Property() {
               {/* Price & Financing Pill */}
               <div className="mt-5 sm:mt-7 flex flex-wrap items-baseline justify-between gap-3 border-y border-stone/60 py-4 sm:py-5">
                 <div>
-                  <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-muted">Asking Price</span>
-                  <p className="font-display text-2xl sm:text-4xl text-ink">{usd(p.price)}</p>
+                  <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-muted">Asking Price</span>
+                  <p className="font-modern font-bold text-2xl sm:text-4xl text-ink tracking-tight">{usd(p.price)}</p>
                 </div>
 
                 <a
@@ -517,7 +517,7 @@ export default function Property() {
               {/* Bold Architectural Spec Ticker */}
               <div className="mt-5 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-4 text-center rounded-2xl bg-sand/35 p-3 sm:p-4 border border-stone/50">
                 <div>
-                  <p className="font-display text-xl sm:text-3xl text-ink">{p.beds}</p>
+                  <p className="font-modern font-bold text-xl sm:text-3xl text-ink">{p.beds}</p>
                   <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-muted mt-0.5">Beds</p>
                 </div>
                 <div className="border-x border-stone/60">
