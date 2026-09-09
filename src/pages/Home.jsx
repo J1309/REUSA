@@ -24,22 +24,15 @@ function Hero() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('buy')
   const [query, setQuery] = useState('')
-  const bg = useRef(null)
   const content = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Gentle cinematic parallax on scroll
-      gsap.to(bg.current, {
-        yPercent: 14,
-        ease: 'none',
-        scrollTrigger: { trigger: bg.current, start: 'top top', end: 'bottom top', scrub: true },
-      })
       gsap.to(content.current, {
         opacity: 0,
         y: -35,
         ease: 'none',
-        scrollTrigger: { trigger: bg.current, start: 'top top', end: '60% top', scrub: true },
+        scrollTrigger: { trigger: content.current, start: 'top top', end: '60% top', scrub: true },
       })
     })
     return () => ctx.revert()
@@ -56,16 +49,15 @@ function Hero() {
   const quickPills = ['Montecito, CA', 'Austin, TX', 'Naples, FL', '4+ Beds', 'Waterfront', 'Under $3M']
 
   return (
-    <section className="relative min-h-[64svh] sm:min-h-[70svh] lg:min-h-[74svh] overflow-hidden bg-ink pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-16 flex items-center justify-center">
-      {/* High-Resolution Architectural Video Background (Untinted & Crisp) */}
-      <div ref={bg} className="absolute inset-0 -bottom-[10%] pointer-events-none overflow-hidden">
+    <section className="relative min-h-[64svh] sm:min-h-[70svh] lg:min-h-[74svh] overflow-hidden bg-black pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-16 flex items-center justify-center">
+      {/* Pure, untinted video background rendered at native 100% scale */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <video
           autoPlay
           muted
           loop
           playsInline
-          poster="/images/hero/hero-custom.webp"
-          className="size-full object-cover object-center scale-105"
+          className="size-full object-cover object-center"
         >
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
