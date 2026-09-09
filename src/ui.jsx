@@ -272,21 +272,109 @@ const links = [
   { to: '/about', label: 'Philosophy & Team' },
 ]
 
+/* ------------------------------------------------------------------ *
+ * Bespoke Architectural Brand Identity Logo
+ * Concept: The Isometric Pavilion / Sharp Hexagonal Prism (L & G)
+ * ------------------------------------------------------------------ */
+export function BrandLogo({ className = '', variant = 'auto', overHero = false }) {
+  const isLight = variant === 'light' || (variant === 'auto' && overHero)
+
+  return (
+    <div className={`flex items-center gap-3 select-none ${className}`}>
+      {/* Isometric Pavilion Prism Mark */}
+      <div
+        className={`flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-2xl transition-all duration-300 shadow-sm ${
+          isLight
+            ? 'bg-white/12 text-white backdrop-blur-md border border-white/25 hover:bg-white/20'
+            : 'bg-moss text-sand shadow-moss/20 hover:bg-ink'
+        }`}
+      >
+        <svg
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="size-5 sm:size-6"
+        >
+          {/* Top Architectural Roof Canopy */}
+          <path
+            d="M20 4L34 12L20 20L6 12Z"
+            fill="currentColor"
+            fillOpacity="0.22"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          {/* Outer Isometric Pavilion Perimeter */}
+          <path
+            d="M6 12V28L20 36L34 28V12"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinejoin="round"
+          />
+          {/* Center Isometric Fold Line */}
+          <path
+            d="M20 20V36"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeOpacity="0.35"
+          />
+          {/* Modern Columnar 'L' Monogram */}
+          <path
+            d="M12 16.5V27L18 30.5"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* Modern Architectural 'G' Monogram Anchor */}
+          <path
+            d="M28 17.5V26.5L22 30V24.5H26.5"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+
+      {/* Refined Brand Wordmark & Metadata */}
+      <div className="flex flex-col text-left">
+        <span
+          className={`font-modern text-sm sm:text-[15px] font-bold tracking-[0.22em] uppercase leading-tight transition-colors ${
+            isLight ? 'text-white' : 'text-ink'
+          }`}
+        >
+          Realtor LG
+        </span>
+        <span
+          className={`text-[8.5px] sm:text-[9.5px] font-mono tracking-[0.28em] uppercase transition-colors mt-0.5 ${
+            isLight ? 'text-accent' : 'text-sea'
+          }`}
+        >
+          Private Residences
+        </span>
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ *
+ * Main Navigation
+ * ------------------------------------------------------------------ */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const { pathname } = useLocation()
-  // Home has a dark full-bleed hero; other pages start on the light background.
-  const overHero = pathname === '/' && !scrolled && !open
+  const loc = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
-    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => setOpen(false), [pathname])
+  useEffect(() => setOpen(false), [loc.pathname])
+
+  const overHero = loc.pathname === '/' && !scrolled && !open
 
   return (
     <header
@@ -295,19 +383,9 @@ export function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4 lg:px-10">
-        {/* Brand Logo */}
-        <Link
-          to="/"
-          className={`flex items-center gap-2.5 font-bold tracking-tight text-lg sm:text-xl transition-colors ${
-            overHero ? 'text-white' : 'text-ink'
-          }`}
-        >
-          <span className="flex size-7 sm:size-8 items-center justify-center rounded-lg bg-white text-ink shadow-sm">
-            <svg className="size-4 sm:size-4.5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
-            </svg>
-          </span>
-          <span className="font-modern font-bold tracking-tight">Realtor LG</span>
+        {/* Bespoke Architectural Brand Logo */}
+        <Link to="/" className="group focus:outline-none">
+          <BrandLogo overHero={overHero} />
         </Link>
 
         {/* Center Desktop Links */}
@@ -475,11 +553,9 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <p className="font-display text-3xl">
-              Realtor LG<span className="text-accent">.</span>
-            </p>
+            <BrandLogo variant="light" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-sand/60">
-              A small brokerage that takes few listings and answers the phone. Licensed in CA, TX, FL, SC, OR and CO.
+              A bespoke architectural brokerage representing private residences and luxury estates. Licensed in CA, TX, FL, SC, OR and CO.
             </p>
           </div>
 
