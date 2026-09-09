@@ -56,35 +56,39 @@ function Hero() {
   const quickPills = ['Montecito, CA', 'Austin, TX', 'Naples, FL', '4+ Beds', 'Waterfront', 'Under $3M']
 
   return (
-    <section className="relative min-h-[92svh] sm:min-h-[96svh] overflow-hidden bg-ink pt-28 pb-20 sm:pt-36 sm:pb-28 lg:pt-44 lg:pb-36 flex items-center justify-center">
-      {/* High-Resolution Architectural Background (Untinted & Crisp) */}
-      <div ref={bg} className="absolute inset-0 -bottom-[16%] pointer-events-none">
-        <img
-          src="/images/hero/hero-custom.webp"
-          alt="Luxury modern architectural residence"
-          fetchPriority="high"
-          className="size-full object-cover object-center scale-105 transition-transform duration-[2s]"
-        />
+    <section className="relative min-h-[64svh] sm:min-h-[70svh] lg:min-h-[74svh] overflow-hidden bg-ink pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-32 lg:pb-16 flex items-center justify-center">
+      {/* High-Resolution Architectural Video Background (Untinted & Crisp) */}
+      <div ref={bg} className="absolute inset-0 -bottom-[10%] pointer-events-none overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/images/hero/hero-custom.webp"
+          className="size-full object-cover object-center scale-105"
+        >
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
       </div>
 
       <div ref={content} className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 w-full text-center text-white z-10">
         {/* Headline with thin, refined luxury typography */}
         <div className="animate-[fadeIn_0.8s_ease]">
-          <span className="block font-serif italic font-light text-2xl sm:text-4xl md:text-5xl text-accent drop-shadow-md tracking-wide">
+          <span className="block font-serif italic font-light text-xl sm:text-3xl md:text-4xl text-accent drop-shadow-md tracking-wide">
             Your Sanctuary. Your Legacy.
           </span>
-          <h1 className="mt-2 font-modern font-light text-[clamp(2.5rem,6.5vw,4.8rem)] leading-[1.05] tracking-tight text-white drop-shadow-md">
+          <h1 className="mt-1.5 font-modern font-light text-[clamp(2.2rem,5vw,4.2rem)] leading-[1.06] tracking-tight text-white drop-shadow-md">
             Your Property. Your Brand. Your Story.
           </h1>
         </div>
 
         {/* Interactive Filter Category Tabs */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-center gap-1.5 sm:gap-4 overflow-x-auto pb-1 max-w-full scrollbar-none">
+        <div className="mt-6 sm:mt-7 flex items-center justify-center gap-1.5 sm:gap-4 overflow-x-auto pb-1 max-w-full scrollbar-none">
           {heroTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative px-3 sm:px-4 py-2 text-xs sm:text-sm font-light tracking-wide transition-all whitespace-nowrap ${
+              className={`relative px-3 sm:px-4 py-1.5 text-xs sm:text-sm font-light tracking-wide transition-all whitespace-nowrap ${
                 activeTab === tab.id
                   ? 'text-white font-medium'
                   : 'text-white/70 hover:text-white'
@@ -101,7 +105,7 @@ function Hero() {
         {/* Expansive Search Bar Pill Console */}
         <form
           onSubmit={handleSearch}
-          className="mt-4 sm:mt-5 mx-auto max-w-3xl rounded-full bg-white/95 p-1.5 sm:p-2 pl-5 sm:pl-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] backdrop-blur-xl border border-white/80 flex items-center gap-3 transition-all focus-within:ring-4 focus-within:ring-white/30"
+          className="mt-3.5 sm:mt-4 mx-auto max-w-3xl rounded-full bg-white/95 p-1.5 sm:p-2 pl-5 sm:pl-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] backdrop-blur-xl border border-white/80 flex items-center gap-3 transition-all focus-within:ring-4 focus-within:ring-white/30"
         >
           {/* Location Icon */}
           <svg className="size-5 text-muted shrink-0 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,7 +135,7 @@ function Hero() {
           {/* Vibrant High-Contrast Search Action Button */}
           <button
             type="submit"
-            className="rounded-full bg-[#d9222a] hover:bg-[#bd181f] text-white px-6 sm:px-8 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0"
+            className="rounded-full bg-[#d9222a] hover:bg-[#bd181f] text-white px-6 sm:px-8 py-2.5 sm:py-3 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all hover:scale-105 active:scale-95 shrink-0"
           >
             <span>Search</span>
             <svg className="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,7 +145,7 @@ function Hero() {
         </form>
 
         {/* Quick Suggestion Pills */}
-        <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-2 text-xs">
+        <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
           <span className="text-white/60 text-[11px] uppercase tracking-wider font-medium mr-1">Trending:</span>
           {quickPills.map((pill) => (
             <button
@@ -161,7 +165,7 @@ function Hero() {
         </div>
 
         {/* Trust footnote */}
-        <p className="mt-6 text-[11px] text-white/50 tracking-wide font-light">
+        <p className="mt-4 sm:mt-5 text-[11px] text-white/50 tracking-wide font-light">
           *Based on proprietary transaction fidelity and independent 2025 national client satisfaction index.
         </p>
       </div>
