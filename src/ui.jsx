@@ -281,61 +281,12 @@ export function BrandLogo({ className = '', variant = 'auto', overHero = false }
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Isometric Pavilion Prism Mark */}
-      <div
-        className={`flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-2xl transition-all duration-300 shadow-sm ${
-          isLight
-            ? 'bg-white/12 text-white backdrop-blur-md border border-white/25 hover:bg-white/20'
-            : 'bg-moss text-sand shadow-moss/20 hover:bg-ink'
-        }`}
-      >
-        <svg
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="size-5 sm:size-6"
-        >
-          {/* Top Architectural Roof Canopy */}
-          <path
-            d="M20 4L34 12L20 20L6 12Z"
-            fill="currentColor"
-            fillOpacity="0.22"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinejoin="round"
-          />
-          {/* Outer Isometric Pavilion Perimeter */}
-          <path
-            d="M6 12V28L20 36L34 28V12"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinejoin="round"
-          />
-          {/* Center Isometric Fold Line */}
-          <path
-            d="M20 20V36"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeOpacity="0.35"
-          />
-          {/* Modern Columnar 'L' Monogram */}
-          <path
-            d="M12 16.5V27L18 30.5"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          {/* Modern Architectural 'G' Monogram Anchor */}
-          <path
-            d="M28 17.5V26.5L22 30V24.5H26.5"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
+      {/* Exact Isometric Pavilion Gold Emblem */}
+      <img
+        src="/images/logo/logo-isometric-gold.png"
+        alt="Realtor LG Isometric Pavilion Logo"
+        className="h-9 w-auto sm:h-10 shrink-0 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-105"
+      />
 
       {/* Refined Brand Wordmark & Metadata */}
       <div className="flex flex-col text-left">
@@ -348,7 +299,7 @@ export function BrandLogo({ className = '', variant = 'auto', overHero = false }
         </span>
         <span
           className={`text-[8.5px] sm:text-[9.5px] font-mono tracking-[0.28em] uppercase transition-colors mt-0.5 ${
-            isLight ? 'text-accent' : 'text-sea'
+            isLight ? 'text-[#e5cba4]' : 'text-sea'
           }`}
         >
           Private Residences
