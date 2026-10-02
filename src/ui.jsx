@@ -274,18 +274,19 @@ const links = [
 
 /* ------------------------------------------------------------------ *
  * Bespoke Architectural Brand Identity Logo
- * Concept: The Isometric Pavilion / Sharp Hexagonal Prism (L & G)
  * ------------------------------------------------------------------ */
 export function BrandLogo({ className = '', variant = 'auto', overHero = false }) {
   const isLight = variant === 'light' || (variant === 'auto' && overHero)
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Exact Isometric Pavilion Gold Emblem */}
+      {/* High-Resolution Gold Hexagonal Pavilion Emblem */}
       <img
-        src="/images/logo/logo-isometric-gold.png"
-        alt="Realtor LG Isometric Pavilion Logo"
-        className="h-9 w-auto sm:h-10 shrink-0 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover:scale-105"
+        src="/images/logo/brand-logo.webp"
+        alt="Realtor LG Brand Logo"
+        width="44"
+        height="44"
+        className="h-9 w-auto sm:h-10.5 shrink-0 object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-105"
       />
 
       {/* Refined Brand Wordmark & Metadata */}
@@ -299,7 +300,7 @@ export function BrandLogo({ className = '', variant = 'auto', overHero = false }
         </span>
         <span
           className={`text-[8.5px] sm:text-[9.5px] font-mono tracking-[0.28em] uppercase transition-colors mt-0.5 ${
-            isLight ? 'text-[#e5cba4]' : 'text-sea'
+            isLight ? 'text-[#ebd290]' : 'text-sea'
           }`}
         >
           Private Residences
