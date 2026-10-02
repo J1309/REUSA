@@ -56,7 +56,7 @@ function TourModal({ isOpen, property, onClose }) {
             </div>
             <h3 className="font-display text-2xl text-ink">Tour Request Confirmed</h3>
             <p className="mt-2 text-sm text-muted">
-              Elena Marsh will confirm your private walkthrough at <strong>{property.title}</strong> shortly.
+              Lijo George will confirm your private walkthrough at <strong>{property.title}</strong> shortly.
             </p>
           </div>
         ) : (
@@ -538,17 +538,17 @@ export default function Property() {
                 <div className="flex items-center gap-3">
                   <img
                     src="/images/hero/hero-02.webp"
-                    alt="Elena Marsh"
+                    alt="Lijo George"
                     className="size-10 sm:size-12 rounded-full object-cover border border-stone/80"
                   />
                   <div>
-                    <p className="text-xs sm:text-sm font-semibold text-ink">Elena Marsh</p>
-                    <p className="text-[10px] sm:text-[11px] text-muted">Principal Broker · DRE #01998421</p>
+                    <p className="text-xs sm:text-sm font-semibold text-ink">Lijo George</p>
+                    <p className="text-[10px] sm:text-[11px] text-muted">Owner · Licensed PA Realtor Since 2005</p>
                   </div>
                 </div>
 
                 <a
-                  href="tel:+18005550142"
+                  href="tel:+12157767940"
                   className="rounded-full border border-stone bg-sand/30 px-3 py-1 sm:px-3.5 sm:py-1.5 text-xs font-medium text-ink hover:bg-stone/60 transition-colors"
                 >
                   Contact
@@ -662,8 +662,8 @@ export default function Property() {
                 >
                   Schedule Private Tour
                 </button>
-                <a href="tel:+18005550142" className={`${btnGhost} text-sand`}>
-                  Call Listing Agent
+                <a href="tel:+12157767940" className={`${btnGhost} text-sand`}>
+                  Call Lijo George
                 </a>
               </div>
             </Reveal>

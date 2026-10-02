@@ -269,7 +269,8 @@ export function ScrollProgress() {
 const links = [
   { to: '/', label: 'Overview' },
   { to: '/listings', label: 'Residences' },
-  { to: '/about', label: 'Philosophy & Team' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 /* ------------------------------------------------------------------ *
@@ -507,7 +508,7 @@ export function Footer() {
           <div>
             <BrandLogo variant="light" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-sand/60">
-              A bespoke architectural brokerage representing private residences and luxury estates. Licensed in CA, TX, FL, SC, OR and CO.
+              A dedicated real estate advisory representing buyers, sellers, investors, landlords, and commercial clients across Pennsylvania. Licensed PA Realtor since 2005.
             </p>
           </div>
 
@@ -522,13 +523,13 @@ export function Footer() {
 
           <div className="text-sm">
             <p className="mb-4 text-xs uppercase tracking-widest text-sand/40">Contact</p>
-            <a href="tel:+18005550142" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
-              +1 (800) 555-0142
+            <a href="tel:+12157767940" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
+              +1 (215) 776-7940
             </a>
             <a href="mailto:hello@realtorlg.com" className="flex min-h-11 items-center text-sand/70 transition-colors hover:text-sand">
               hello@realtorlg.com
             </a>
-            <p className="flex min-h-11 items-center text-sand/70">Mon–Sat, 8am–7pm PT</p>
+            <p className="flex min-h-11 items-center text-sand/70">Mon–Sat, 8am–7pm EST</p>
           </div>
         </div>
 

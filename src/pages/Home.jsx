@@ -415,14 +415,14 @@ function CTA() {
           Tell us what you're <span className="font-serif italic font-normal text-sea">looking for.</span>
         </h2>
         <p className="mx-auto mt-5 max-w-md text-sm sm:text-base text-muted leading-relaxed">
-          No automated newsletters, no junior handoffs. One discreet consultation with a principal broker, usually the same day.
+          No automated newsletters, no junior handoffs. One discreet consultation directly with Lijo George, usually the same day.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3.5">
-          <a href="tel:+18005550142" className={`${btnMoss} min-h-12 px-8 text-sm font-semibold shadow-md`}>
-            Call +1 (800) 555-0142
+          <a href="tel:+12157767940" className={`${btnMoss} min-h-12 px-8 text-sm font-semibold shadow-md`}>
+            Call +1 (215) 776-7940
           </a>
-          <Link to="/about" className={`${btnGhost} text-ink min-h-12 px-8 text-sm font-semibold`}>
-            Meet the Principals
+          <Link to="/contact" className={`${btnGhost} text-ink min-h-12 px-8 text-sm font-semibold`}>
+            Contact & Inquiries
           </Link>
         </div>
       </Reveal>
