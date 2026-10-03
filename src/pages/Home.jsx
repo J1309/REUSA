@@ -410,6 +410,18 @@ function CTA() {
   return (
     <section id="consultation" className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-24 lg:py-28 lg:px-10">
       <Reveal className="overflow-hidden rounded-[2.5rem] bg-white p-8 sm:p-14 text-center shadow-[0_30px_70px_-30px_rgba(12,31,28,0.2)] border border-stone/80 md:p-20">
+        <div className="mx-auto mb-6 flex flex-col items-center">
+          <picture>
+            <source srcSet="/images/owner_img.webp" type="image/webp" />
+            <img
+              src="/images/owner_img.png"
+              alt="Lijo George, Owner of LG Realtor"
+              className="size-20 sm:size-24 rounded-full object-cover object-[center_14%] border-2 border-stone shadow-md"
+            />
+          </picture>
+          <p className="mt-2.5 text-xs font-semibold text-ink">Lijo George</p>
+          <p className="text-[10px] font-mono text-muted uppercase tracking-wider">Owner & Principal Realtor · PA Since 2005</p>
+        </div>
         <span className="text-xs font-mono uppercase tracking-[0.25em] text-sea font-semibold">/ PRIVATE ADVISORY</span>
         <h2 className="mx-auto mt-2 max-w-2xl font-modern font-bold text-[clamp(2rem,4.5vw,3.4rem)] leading-tight text-ink">
           Tell us what you're <span className="font-serif italic font-normal text-sea">looking for.</span>

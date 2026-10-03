@@ -536,11 +536,14 @@ export default function Property() {
               {/* Agent card */}
               <div className="flex items-center justify-between rounded-2xl border border-stone/60 bg-white p-3 sm:p-3.5 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <img
-                    src="/images/hero/hero-02.webp"
-                    alt="Lijo George"
-                    className="size-10 sm:size-12 rounded-full object-cover border border-stone/80"
-                  />
+                  <picture>
+                    <source srcSet="/images/owner_img.webp" type="image/webp" />
+                    <img
+                      src="/images/owner_img.png"
+                      alt="Lijo George"
+                      className="size-11 sm:size-12 rounded-full object-cover object-top border border-stone/80 shadow-sm"
+                    />
+                  </picture>
                   <div>
                     <p className="text-xs sm:text-sm font-semibold text-ink">Lijo George</p>
                     <p className="text-[10px] sm:text-[11px] text-muted">Owner · Licensed PA Realtor Since 2005</p>

@@ -93,13 +93,16 @@ export default function About() {
         <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr] items-start">
           {/* Left Column: Architectural Showcase & Highlight Card */}
           <Reveal>
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-stone/80 bg-stone/20 shadow-lg aspect-[4/3.5] sm:aspect-[4/3]">
-              <img
-                src="/images/showcase/showcase-01.webp"
-                alt="Lijo George - LG Realtor Architectural Office"
-                className="size-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-stone/80 bg-gradient-to-b from-sand/40 to-stone/30 shadow-xl aspect-[4/4.6] sm:aspect-[4/4.2]">
+              <picture>
+                <source srcSet="/images/owner_img.webp" type="image/webp" />
+                <img
+                  src="/images/owner_img.png"
+                  alt="Lijo George - Owner & Realtor, LG Realtor"
+                  className="size-full object-cover object-[center_14%] transition-transform duration-700 hover:scale-[1.02]"
+                />
+              </picture>
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent pointer-events-none" />
 
               {/* Float Stat Badge */}
               <div className="absolute inset-x-6 bottom-6 flex items-center justify-between rounded-2xl bg-white/95 p-4 sm:p-5 backdrop-blur-md border border-white/80 shadow-md text-ink">

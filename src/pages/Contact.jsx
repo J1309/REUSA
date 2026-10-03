@@ -95,10 +95,28 @@ export default function Contact() {
             {/* Primary Phone Highlight Card */}
             <div className="relative overflow-hidden rounded-[2.2rem] bg-ink p-8 text-sand shadow-xl">
               <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <picture>
+                    <source srcSet="/images/owner_img.webp" type="image/webp" />
+                    <img
+                      src="/images/owner_img.png"
+                      alt="Lijo George - Owner & Realtor"
+                      className="size-16 sm:size-18 rounded-2xl object-cover object-top border-2 border-accent/40 shadow-lg shrink-0"
+                    />
+                  </picture>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.22em] text-accent font-semibold block">
+                      Direct Principal Realtor
+                    </span>
+                    <h3 className="font-modern font-bold text-xl sm:text-2xl text-white">Lijo George</h3>
+                    <p className="text-xs text-sand/70">Owner · PA Realtor Since 2005</p>
+                  </div>
+                </div>
+
                 <span className="text-xs font-mono uppercase tracking-[0.22em] text-accent font-semibold">
                   Direct Line · Call or Text
                 </span>
-                <p className="mt-3 font-modern font-bold text-3xl sm:text-4xl text-white tracking-tight">
+                <p className="mt-2 font-modern font-bold text-3xl sm:text-4xl text-white tracking-tight">
                   +1 (215) 776-7940
                 </p>
                 <p className="mt-3 text-sm text-sand/75 leading-relaxed">
